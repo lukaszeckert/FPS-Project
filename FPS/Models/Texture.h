@@ -10,4 +10,5 @@ class Texture
 public:
 	Texture(char *filename);
 	~Texture();
+	GLuint getTexture();
 };

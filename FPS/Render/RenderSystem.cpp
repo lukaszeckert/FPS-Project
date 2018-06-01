@@ -19,11 +19,8 @@ RenderSystem& RenderSystem::getRenderSystem(GLFWwindow *window)
 	
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		glMatrixMode(GL_PROJECTION);
-		gluPerspective(75.0f, 1280.0 / 720.0f, 1, 1000);
-		glViewport(0.0f, 0.0f, 1280.0f, 720.0f);
-		glMatrixMode(GL_MODELVIEW);
-
+		//glMatrixMode(GL_PROJECTION);
+	//	gluPerspective(75.0f, 1280.0 / 720.0f, 1, 1000);
 
 	}
 	return *renderSystem;
@@ -65,10 +62,38 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	glUniformMatrix4fv(shader->getV(), 1, false, glm::value_ptr(V));
 	glUniformMatrix4fv(shader->getM(), 1, false, glm::value_ptr(M));
 
+
+	glm::vec3 lightColor;
+	lightColor.x = 1;//sin(glfwGetTime() * 2.0f);
+	lightColor.y = 1;// sin(glfwGetTime() * 0.7f);
+	lightColor.z = 1;// sin(glfwGetTime() * 1.3f);
+
 	shader->setVec3("objectColor", entity->color);
 	shader->setVec3("lightColor", lighSystem->globalColor);
+
 	shader->setVec3("lightPos", lighSystem->globalPosition);
 	shader->setVec3("viewPos", cameraPosition);
+
+	//materials
+
+	glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // decrease the influence
+	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f); // low influence
+	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
+	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
+	shader->setFloat("material.shininess", 32.0f);
+
+	//light
+	shader->setVec3("light.ambient",ambientColor);
+	shader->setVec3("light.diffuse", diffuseColor);
+	shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+	//Texture
+	shader->setInt("materialTex.diffuse", 0);
+	shader->setVec3("materialTex.specular", 1.0f, 0.5f, 0.31f);
+	shader->setFloat("materialTex.shininess", 32.0f);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, entity->diffuseMap);
 
 	entity->vertexBuffer->configureVertexAttributes(shader);
 	entity->vertexBuffer->renderVertexBuffer();

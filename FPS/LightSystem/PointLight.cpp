@@ -5,6 +5,10 @@ PointLight::PointLight(glm::vec3 postion, glm::vec3 color): position(postion),co
 
 }
 
+PointLight::PointLight()
+{
+}
+
 PointLight::~PointLight()
 {
 }

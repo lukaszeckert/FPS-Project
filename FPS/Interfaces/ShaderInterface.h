@@ -11,9 +11,12 @@ class ShaderInterface
 
 	GLint aPostionVertex;
 	GLint uColor;
+	GLint aTexCoord;
+
 	GLint uP;
 	GLint uM;
 	GLint uV;
+	
 	GLint aNormal;
 
 	char *vertexShader;
@@ -29,12 +32,12 @@ public:
 	
 	GLint getPostionVertex();
 	GLint getNormal();
+	GLint getTexCoord();
 	GLint getColor();
 	void setVec3(char *name, float a, float b, float c);
-	void setVec3(char *name, glm::vec3 a)
-	{
-		setVec3(name, a.x, a.y, a.z);
-	}
+	void setFloat(char * name, float f);
+	void setInt(char * name, int f);
+	void setVec3(char *name, glm::vec3 a);
 	
 
 	ShaderInterface(const char *sourceVS, const char *sourceFS);

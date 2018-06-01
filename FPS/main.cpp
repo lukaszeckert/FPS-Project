@@ -1,5 +1,8 @@
+//#include "Dependencies\glew\glew.h"
 #include "Dependencies\glew\glew.h"
-#include "Dependencies\freeglut\freeglut.h"
+#include "Dependencies\glfw\glfw3.h"
+
+//#include "Dependencies\freeglut\freeglut.h"
 #include <iostream>
 #include <stdio.h>
 #include "Managers\GameManager.h"
@@ -7,14 +10,14 @@
 #include "Dependencies\glm\glm.hpp"
 #include <fstream>
 
-
+/*
 bool initGL()
 {
 	PIXELFORMATDESCRIPTOR pfd;
 	HWND hwnd; HDC hdc; int pixelFormat;
 	memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
 	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-	pfd.nVersion = 1;
+	pfd.nVersion = 2;
 	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
 	pfd.iPixelType = PFD_TYPE_RGBA;
 	pfd.cColorBits = 32;
@@ -32,14 +35,16 @@ bool initGL()
 	SetPixelFormat(hdc, pixelFormat, &pfd);
 	wglMakeCurrent(hdc, wglCreateContext(hdc));
 	return wglGetCurrentContext() != NULL;
-}
+}*/
 
 int main(int argc, char **argv)
 {
-	initGL();
+	//initGL();
+	
 	GameManager *gameManager = &GameManager::getGameManager();
 	gameManager->runGameLoop();
 	GameManager::destroyGameManager();
-	
+	for (int i = 0; i < 100000000; i += 2)
+		i--;
 	return 0;
 }

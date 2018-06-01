@@ -14,19 +14,13 @@ ResourceManager::ResourceManager()
 	lightSystem->globalColor = glm::vec3(1.0, 1.0, 0);
 	lightSystem->globalPosition = glm::vec3(5, 0, 7);
 
-	ShaderInterface *shader = new ShaderInterface("Shaders\\vPhong.glsl", "Shaders\\fPhong.glsl");
+	ShaderInterface *shader = new ShaderInterface("Shaders\\vPhongTex.glsl", "Shaders\\fPhongTex.glsl");
 	shaderArray->push_back(shader);
 	camera = Camera();
-	
-//	VertexBuffer *vertexBuffer = new VertexBuffer(vertices2, sizeof(vertices2), GL_TRIANGLES, sizeof(vertices2)/ sizeof(GLfloat), sizeof(GLfloat) * 3);
-//	vertexBufferArray->push_back(vertexBuffer);
+	Texture *tex = new Texture("GraphicModels\\container2.png");
+	TextureArray->push_back(tex);
 
-	EntityArray = new std::vector<Entity*>();
-//	Entity *entity = new Entity(glm::vec3(0,-3,5),vertexBuffer, shader);
-	//EntityArray->push_back(entity);
-//	entity = new Entity(glm::vec3(-1, 0, 5), vertexBuffer, shader);
-	//EntityArray->push_back(entity);
-	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels\\box_stack.obj");
+	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels\\cube.obj");
 	float poz = 0;
 	for (auto it : meshes)
 	{
@@ -35,6 +29,7 @@ ResourceManager::ResourceManager()
 		vertexBufferArray->push_back(vertexBuffer);
 		Entity *entity = new Entity(glm::vec3(0, 0, 5), vertexBuffer, shader,glm::vec3(0.0,1.0,0.5));
 		EntityArray->push_back(entity);
+		entity->diffuseMap = tex->getTexture();
 	
 		
 	}

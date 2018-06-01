@@ -22,6 +22,12 @@ void VertexBuffer::configureVertexAttributes(ShaderInterface *shader)
 		glEnableVertexAttribArray(normal);
 		glVertexAttribPointer(normal, 4, GL_FLOAT, GL_FALSE, stride, ((GLvoid*)(4 * sizeof(GLfloat))));
 	}
+	auto tex = shader->getTexCoord();
+	if (tex != -1)
+	{
+		glEnableVertexAttribArray(tex);
+		glVertexAttribPointer(tex, 2, GL_FLOAT, GL_FALSE, stride, ((GLvoid*)(8 * sizeof(GLfloat))));
+	}
 
 	
 }
