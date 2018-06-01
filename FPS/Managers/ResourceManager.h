@@ -1,9 +1,10 @@
 #pragma once
 #include <vector>
-#include "ShaderInterface.h"
-#include "VertexBuffer.h"
-#include "Entity.h"
-#include "ObjectLoaderInterface.h"
+#include "..\Interfaces\ShaderInterface.h"
+#include "..\Interfaces\ObjectLoaderInterface.h"
+#include "..\Models\VertexBuffer.h"
+#include "..\Models\Entity.h"
+
 
 class ResourceManager
 {

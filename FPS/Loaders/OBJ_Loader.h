@@ -617,7 +617,7 @@ namespace objl
 
 					if (temp.size() != 1)
 					{
-						for (int i = 0; i < temp.size() - 1; i++)
+						for (size_t i = 0; i < temp.size() - 1; i++)
 						{
 							pathtomat += temp[i] + "/";
 						}

@@ -2,11 +2,11 @@
 #include "Dependencies\freeglut\freeglut.h"
 #include <iostream>
 #include <stdio.h>
-#include "GameManager.h"
+#include "Managers\GameManager.h"
 #include "Dependencies\glm\vec3.hpp"
 #include "Dependencies\glm\glm.hpp"
 #include <fstream>
-//#include "OBJ_Loader.h"
+
 
 bool initGL()
 {
@@ -40,11 +40,6 @@ int main(int argc, char **argv)
 	GameManager *gameManager = &GameManager::getGameManager();
 	gameManager->runGameLoop();
 	GameManager::destroyGameManager();
-
-
-
-	
-	// Load .obj File
 	
 	return 0;
 }

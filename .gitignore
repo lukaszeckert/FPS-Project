@@ -1,0 +1,13 @@
+.vs/
+Debug/
+FPS.sln
+FPS/e1Out.txt
+*.vcxproj
+*.filters
+*.user
+freeglut-2.8.1/
+freeglut-3.0.0/
+glew-2.1.0/doc/mesa.txt
+glew-2.1.0/
+FPS/Release/
+Release/

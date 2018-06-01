@@ -1,9 +1,10 @@
 #pragma once
 #include <iostream>
-#include "Dependencies\glew\glew.h"
-#include "Dependencies\glfw\glfw3.h"
-#include "RenderSystem.h"
-#include "ResourceManager.h"
+#include "..\Dependencies\glew\glew.h"
+#include "..\Dependencies\glfw\glfw3.h"
+#include "..\Render\RenderSystem.h"
+#include "..\Managers\ResourceManager.h"
+
 
 class GameManager
 {

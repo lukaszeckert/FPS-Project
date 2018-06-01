@@ -38,7 +38,7 @@ void RenderSystem::destroyRenderSystem()
 }
 void RenderSystem::renderAll(std::vector<Entity*>* Entitys, glm::vec3 eye, glm::vec3 center, glm::vec3 up, float aspect)
 {
-	std::cout << aspect << "\n";
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	auto V = glm::lookAt(eye, center, up);

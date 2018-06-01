@@ -5,6 +5,7 @@
 char * ShaderInterface::loadTextFromFile(const char * file)
 {
 	FILE *current = fopen(file,"r");
+
 	fseek(current, 0, SEEK_END);
 	int count = (int)ftell(current);
 	rewind(current);

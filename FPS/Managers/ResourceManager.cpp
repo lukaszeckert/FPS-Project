@@ -1,12 +1,12 @@
 #include "ResourceManager.h"
-#include "TriangleV.h"
+
 
 
 ResourceManager *ResourceManager::resourceManager = nullptr;
 ResourceManager::ResourceManager()
 {
 	shaderArray = new std::vector<ShaderInterface*>();
-	ShaderInterface *shader = new ShaderInterface("vShader.glsl", "fShader.glsl");
+	ShaderInterface *shader = new ShaderInterface("Shaders\\vShader.glsl", "Shaders\\fShader.glsl");
 	shaderArray->push_back(shader);
 	
 	vertexBufferArray = new std::vector<VertexBuffer*>();
@@ -18,7 +18,7 @@ ResourceManager::ResourceManager()
 	//EntityArray->push_back(entity);
 //	entity = new Entity(glm::vec3(-1, 0, 5), vertexBuffer, shader);
 	//EntityArray->push_back(entity);
-	auto meshes = ObjectLoaderInterface::loadObjFile("box_stack.obj");
+	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels\\box_stack.obj");
 	float poz = 0;
 	for (auto it : meshes)
 	{

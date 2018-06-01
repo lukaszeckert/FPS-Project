@@ -1,13 +1,16 @@
 #pragma once
 #define GLFW_INCLUDE_GLU
-#include "Dependencies\glew\glew.h"
-#include "Dependencies\glfw\glfw3.h"
-#include "Dependencies\glm\glm.hpp"
-#include "Dependencies\glm\gtc\type_ptr.hpp"
-#include "Dependencies\glm\gtc\matrix_transform.hpp"
-#include "VertexBuffer.h"
-#include "ShaderInterface.h"
-#include "Entity.h"
+#include "..\Dependencies\glew\glew.h"
+#include "..\Dependencies\glfw\glfw3.h"
+#include "..\Dependencies\glm\glm.hpp"
+#include "..\Dependencies\glm\gtc\type_ptr.hpp"
+#include "..\Dependencies\glm\gtc\matrix_transform.hpp"
+
+#include "..\Models\VertexBuffer.h"
+#include "..\Models\Entity.h"
+
+#include "..\Interfaces\ShaderInterface.h"
+
 #include <vector>
 
 
