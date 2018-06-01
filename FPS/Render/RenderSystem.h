@@ -10,7 +10,8 @@
 #include "..\Models\Entity.h"
 
 #include "..\Interfaces\ShaderInterface.h"
-
+#include "..\LightSystem\LightSystem.h"
+#include "..\Models\Camera.h"
 #include <vector>
 
 
@@ -25,6 +26,6 @@ class RenderSystem
 public:
 	static RenderSystem& getRenderSystem(GLFWwindow *window);
 	static void destroyRenderSystem();
-	void render(VertexBuffer *vertexBuffer, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader );
-	void renderAll(std::vector<Entity*>* Entitys, glm::vec3 eye, glm::vec3 center, glm::vec3 up, float aspect);
+	void render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 position);
+	void renderAll(std::vector<Entity*>* Entitys, Camera *camera,float aspect);
 };

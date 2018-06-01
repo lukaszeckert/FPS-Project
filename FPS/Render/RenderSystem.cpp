@@ -36,24 +36,27 @@ void RenderSystem::destroyRenderSystem()
 	}
 
 }
-void RenderSystem::renderAll(std::vector<Entity*>* Entitys, glm::vec3 eye, glm::vec3 center, glm::vec3 up, float aspect)
+void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float aspect)
 {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
-	auto V = glm::lookAt(eye, center, up);
+	auto V = glm::lookAt(camera->position, camera->dir, camera->up);
 	
 	for (int i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
 		auto M = translate(glm::mat4(1.0f), it->position);
-		render(it->vertexBuffer, P, V, M, it->shaderInterface);
+		render(it, P, V, M, it->shaderInterface,camera->position);
 		
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());
 }
-void RenderSystem::render(VertexBuffer *vertexBuffer, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader)
+void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition)
 {
-	
+	auto lighSystem = LightSystem::getLightSystem();
+
+
 	glUseProgram(shader->getShader());
 	
 	glUniform4f(shader->getColor(), 1.0f, 1.0f, 0.0f, 1.0f);
@@ -62,7 +65,12 @@ void RenderSystem::render(VertexBuffer *vertexBuffer, glm::mat4x4 P, glm::mat4x4
 	glUniformMatrix4fv(shader->getV(), 1, false, glm::value_ptr(V));
 	glUniformMatrix4fv(shader->getM(), 1, false, glm::value_ptr(M));
 
-	vertexBuffer->configureVertexAttributes(shader);
-	vertexBuffer->renderVertexBuffer();
+	shader->setVec3("objectColor", entity->color);
+	shader->setVec3("lightColor", lighSystem->globalColor);
+	shader->setVec3("lightPos", lighSystem->globalPosition);
+	shader->setVec3("viewPos", cameraPosition);
+
+	entity->vertexBuffer->configureVertexAttributes(shader);
+	entity->vertexBuffer->renderVertexBuffer();
 
 }

@@ -6,10 +6,18 @@ ResourceManager *ResourceManager::resourceManager = nullptr;
 ResourceManager::ResourceManager()
 {
 	shaderArray = new std::vector<ShaderInterface*>();
-	ShaderInterface *shader = new ShaderInterface("Shaders\\vShader.glsl", "Shaders\\fShader.glsl");
-	shaderArray->push_back(shader);
-	
 	vertexBufferArray = new std::vector<VertexBuffer*>();
+	EntityArray = new std::vector<Entity*>();
+	TextureArray = new std::vector<Texture*>();
+
+	lightSystem = LightSystem::getLightSystem();
+	lightSystem->globalColor = glm::vec3(1.0, 1.0, 0);
+	lightSystem->globalPosition = glm::vec3(5, 0, 7);
+
+	ShaderInterface *shader = new ShaderInterface("Shaders\\vPhong.glsl", "Shaders\\fPhong.glsl");
+	shaderArray->push_back(shader);
+	camera = Camera();
+	
 //	VertexBuffer *vertexBuffer = new VertexBuffer(vertices2, sizeof(vertices2), GL_TRIANGLES, sizeof(vertices2)/ sizeof(GLfloat), sizeof(GLfloat) * 3);
 //	vertexBufferArray->push_back(vertexBuffer);
 
@@ -23,13 +31,18 @@ ResourceManager::ResourceManager()
 	for (auto it : meshes)
 	{
 		
-		auto vertexBuffer = new VertexBuffer(it.second.data(), sizeof(VertexData)*it.second.size(), GL_TRIANGLES, it.second.size(), sizeof(GLfloat) * 8);
+		auto vertexBuffer = new VertexBuffer(it.second.data(), sizeof(VertexData)*it.second.size(), GL_TRIANGLES, it.second.size(), sizeof(VertexData));
 		vertexBufferArray->push_back(vertexBuffer);
-		Entity *entity = new Entity(glm::vec3(poz, 0, 5), vertexBuffer, shader);
+		Entity *entity = new Entity(glm::vec3(0, 0, 5), vertexBuffer, shader,glm::vec3(0.0,1.0,0.5));
 		EntityArray->push_back(entity);
-		//poz += 2;
+	
 		
 	}
+	//auto vertexBuffer = new VertexBuffer(meshes[0].second.data(), sizeof(VertexData)*meshes[0].second.size(), GL_TRIANGLES, meshes[0].second.size(), sizeof(GLfloat) * 8);
+	shader = new ShaderInterface("Shaders\\vShader.glsl", "Shaders\\fWhite.glsl");
+	shaderArray->push_back(shader);
+	Entity *entity = new Entity(glm::vec3(5, 0, 7), vertexBufferArray->at(0), shader);
+	EntityArray->push_back(entity);
 
 }
 
@@ -74,5 +87,10 @@ void ResourceManager::destroyResourceManager()
 {
 	if (resourceManager != nullptr)
 		delete resourceManager;
+}
+
+Camera * ResourceManager::getCamera()
+{
+	return &camera;
 }
 

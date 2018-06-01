@@ -37,7 +37,8 @@ std::vector<std::pair<std::string, std::vector<VertexData>>> ObjectLoaderInterfa
 			for (size_t j = 0; j < curMesh.Vertices.size(); j++)
 			{
 				VertexData *vd = new VertexData(glm::vec3(curMesh.Vertices[j].Position.X, curMesh.Vertices[j].Position.Y, curMesh.Vertices[j].Position.Z),
-					glm::vec3(curMesh.Vertices[j].Normal.X, curMesh.Vertices[j].Normal.Y, curMesh.Vertices[j].Normal.Z));
+					glm::vec3(curMesh.Vertices[j].Normal.X, curMesh.Vertices[j].Normal.Y, curMesh.Vertices[j].Normal.Z),
+					glm::vec2(curMesh.Vertices[j].TextureCoordinate.X, curMesh.Vertices[j].TextureCoordinate.Y));
 				points.push_back(vd);
 		//			
 		//			glm::vec2(curMesh.Vertices[j].TextureCoordinate.X, curMesh.Vertices[j].TextureCoordinate.Y));

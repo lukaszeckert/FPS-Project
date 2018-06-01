@@ -21,11 +21,14 @@ GameManager& GameManager::getGameManager() {
 		glfwInit();
 		glewInit();
 		
-		glfwWindowHint(GLFW_DEPTH_BITS, 24);
-		glfwWindowHint(GLFW_RED_BITS, 8);
-		glfwWindowHint(GLFW_GREEN_BITS, 8);
-		glfwWindowHint(GLFW_BLUE_BITS, 8);
-		glfwWindowHint(GLFW_ALPHA_BITS, 8);
+		//glfwWindowHint(GLFW_DEPTH_BITS, 24);
+		//glfwWindowHint(GLFW_RED_BITS, 8);
+		//glfwWindowHint(GLFW_GREEN_BITS, 8);
+		//glfwWindowHint(GLFW_BLUE_BITS, 8);
+		//glfwWindowHint(GLFW_ALPHA_BITS, 8);
+
+	
+		glEnable(GL_DEPTH_TEST);
 
 
 		GLFWwindow *window = glfwCreateWindow(1280, 720, "DOOM", NULL, NULL);
@@ -56,14 +59,15 @@ void GameManager::runGameLoop()
 	while (_running){
 		_running = !glfwWindowShouldClose(_window);
 
-		_renderSystem->renderAll(resourceManager->getEntityArray(), glm::vec3(0.0f, 0.0f, -3.0f),
-			glm::vec3(0.0f, 0.0f, 0.0f),
-			glm::vec3(0.0f, 1.0f, 0.0f),aspect);
+		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
 		glfwPollEvents();
 	}
 }
 GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager)
 : _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager){
+	resourceManager->getCamera()->position = glm::vec3(2.0f, 0.0f, -3.0f);
+	resourceManager->getCamera()->dir = glm::vec3(2.0, 0.0, 0.0);
+	resourceManager->getCamera()->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	
 };
 GameManager::~GameManager() {

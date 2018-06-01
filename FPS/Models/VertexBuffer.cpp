@@ -9,6 +9,7 @@ GLuint VertexBuffer::getVertexBuffer()
 
 void VertexBuffer::configureVertexAttributes(ShaderInterface *shader)
 {
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 	auto vertexPosition = shader->getPostionVertex();
 	if (vertexPosition != -1)
 	{
@@ -22,7 +23,7 @@ void VertexBuffer::configureVertexAttributes(ShaderInterface *shader)
 		glVertexAttribPointer(normal, 4, GL_FLOAT, GL_FALSE, stride, ((GLvoid*)(4 * sizeof(GLfloat))));
 	}
 
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+	
 }
 
 void VertexBuffer::renderVertexBuffer()

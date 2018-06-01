@@ -47,6 +47,12 @@ GLint ShaderInterface::getColor()
 {
 	return uColor;
 }
+void ShaderInterface::setVec3(char * name, float a, float b, float c)
+{
+	auto id = glGetUniformLocation(shader->getProgramHandle(), name);
+	glUniform3f(id, a, b, c);
+
+}
 GLint ShaderInterface::getNormal()
 {
 	return aNormal;

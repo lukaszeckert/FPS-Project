@@ -9,7 +9,8 @@ class VertexData
 public:
 	glm::vec4 postion;
 	glm::vec4 normal;
-	VertexData(glm::vec3 postion, glm::vec3 normal);
+	glm::vec2 text;
+	VertexData(glm::vec3 postion, glm::vec3 normal,glm::vec2 text);
 	~VertexData();
 };
 
