@@ -1,5 +1,5 @@
 #pragma once
-#include "..\Dependencies\glew\glew.h"
+#include <glew\glew.h>
 #include "..\Loaders\lodepng.h"
 #include <vector>
 class Texture

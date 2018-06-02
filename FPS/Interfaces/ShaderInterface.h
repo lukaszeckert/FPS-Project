@@ -1,7 +1,7 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
 #include "..\Loaders\ShaderLoader.h"
-#include "..\Dependencies\glm\glm.hpp"
+#include <glm\glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
 

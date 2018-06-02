@@ -1,7 +1,7 @@
 #pragma once
-//#include "..\Dependencies\glew\glew.h"
-#include "..\Dependencies\glew\glew.h"
-#include "..\Dependencies\glfw\glfw3.h"
+//#include <glew\glew.h>
+#include <glew\glew.h>
+#include <glfw\glfw3.h>
 
 
 

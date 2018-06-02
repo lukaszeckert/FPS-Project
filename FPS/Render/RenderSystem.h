@@ -1,10 +1,10 @@
 #pragma once
 #define GLFW_INCLUDE_GLU
-#include "..\Dependencies\glew\glew.h"
-#include "..\Dependencies\glfw\glfw3.h"
-#include "..\Dependencies\glm\glm.hpp"
-#include "..\Dependencies\glm\gtc\type_ptr.hpp"
-#include "..\Dependencies\glm\gtc\matrix_transform.hpp"
+#include <glew\glew.h>
+#include <glfw\glfw3.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\type_ptr.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 
 #include "..\Models\VertexBuffer.h"
 #include "..\Models\Entity.h"
@@ -13,6 +13,8 @@
 #include "..\LightSystem\LightSystem.h"
 #include "..\Models\Camera.h"
 #include <vector>
+
+
 
 
 class RenderSystem

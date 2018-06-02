@@ -2,7 +2,7 @@
 #ifndef __VertexData__h
 #define __VertexData__h
 
-#include "..\Dependencies\glm\glm.hpp"
+#include <glm\glm.hpp>
 class VertexData
 {
 	

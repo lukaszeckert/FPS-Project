@@ -2,7 +2,7 @@
 
 #include "..\Models\VertexBuffer.h"
 #include "..\Interfaces\ShaderInterface.h"
-#include "..\Dependencies\glm\glm.hpp"
+#include <glm\glm.hpp>
 #include <vector>
 class Entity
 {
