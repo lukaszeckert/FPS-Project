@@ -9,6 +9,6 @@ struct PointLight {
 	glm::vec3 specular;
 public:
 	PointLight();
-	PointLight::PointLight(glm::vec3 postion, glm::vec3 color);
+	PointLight(glm::vec3 postion, glm::vec3 color);
 	~PointLight();
 };

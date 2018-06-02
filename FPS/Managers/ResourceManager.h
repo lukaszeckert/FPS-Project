@@ -1,12 +1,12 @@
 #pragma once
 #include <vector>
-#include "..\Interfaces\ShaderInterface.h"
-#include "..\Interfaces\ObjectLoaderInterface.h"
-#include "..\Models\VertexBuffer.h"
-#include "..\Models\Entity.h"
-#include "..\Models\Texture.h"
-#include "..\LightSystem\LightSystem.h"
-#include "..\Models\Camera.h"
+#include "../Interfaces/ShaderInterface.h"
+#include "../Interfaces/ObjectLoaderInterface.h"
+#include "../Models/VertexBuffer.h"
+#include "../Models/Entity.h"
+#include "../Models/Texture.h"
+#include "../LightSystem/LightSystem.h"
+#include "../Models/Camera.h"
 
 class ResourceManager
 {

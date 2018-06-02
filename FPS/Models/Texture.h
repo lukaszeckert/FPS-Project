@@ -1,6 +1,6 @@
 #pragma once
-#include <glew\glew.h>
-#include "..\Loaders\lodepng.h"
+#include <glew/glew.h>
+#include "../Loaders/lodepng.h"
 #include <vector>
 class Texture
 {

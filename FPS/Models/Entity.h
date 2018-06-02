@@ -1,8 +1,8 @@
 #pragma once
 
-#include "..\Models\VertexBuffer.h"
-#include "..\Interfaces\ShaderInterface.h"
-#include <glm\glm.hpp>
+#include "../Models/VertexBuffer.h"
+#include "../Interfaces/ShaderInterface.h"
+#include <glm/glm.hpp>
 #include <vector>
 class Entity
 {

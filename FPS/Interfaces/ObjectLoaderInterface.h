@@ -2,8 +2,8 @@
 #ifndef __ObjectLoaderInterface__h
 #define __ObjectLoaderInterface__h
 
-#include "..\Loaders\OBJ_Loader.h"
-#include "..\Models\VertexData.h"
+#include "../Loaders/OBJ_Loader.h"
+#include "../Models/VertexData.h"
 
 #include <iostream>
 #include <vector>

@@ -1,13 +1,13 @@
-//#include <glew\glew.h>
-#include <glew\glew.h>
-#include <glfw\glfw3.h>
+//#include <glew/glew.h>
+#include <glew/glew.h>
+#include <glfw/glfw3.h>
 
 //#include <freeglut\freeglut.h>
 #include <iostream>
 #include <stdio.h>
-#include "Managers\GameManager.h"
-#include <glm\vec3.hpp>
-#include <glm\glm.hpp>
+#include "Managers/GameManager.h"
+#include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 #include <fstream>
 
 /*

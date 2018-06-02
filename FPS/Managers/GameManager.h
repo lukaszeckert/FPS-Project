@@ -1,9 +1,9 @@
 #pragma once
 #include <iostream> 
-#include <glew\glew.h>
-#include <glfw\glfw3.h>
-#include "..\Render\RenderSystem.h"
-#include "..\Managers\ResourceManager.h"
+#include <glew/glew.h>
+#include <glfw/glfw3.h>
+#include "../Render/RenderSystem.h"
+#include "../Managers/ResourceManager.h"
 
 
 class GameManager
@@ -16,7 +16,7 @@ class GameManager
 	RenderSystem *_renderSystem;
 	float aspect = 1;
 
-	static void GameManager::windowResize(GLFWwindow* window, int width, int height);
+	static void windowResize(GLFWwindow* window, int width, int height);
 
 	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager);
 	~GameManager();

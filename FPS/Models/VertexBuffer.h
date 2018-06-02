@@ -1,7 +1,7 @@
 #pragma once
-#include <glew\glew.h>
-#include <glfw\glfw3.h>
-#include "..\Interfaces\ShaderInterface.h"
+#include <glew/glew.h>
+#include <glfw/glfw3.h>
+#include "../Interfaces/ShaderInterface.h"
 
 class VertexBuffer
 {

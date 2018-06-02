@@ -14,13 +14,13 @@ ResourceManager::ResourceManager()
 	lightSystem->globalColor = glm::vec3(1.0, 1.0, 0);
 	lightSystem->globalPosition = glm::vec3(5, 0, 7);
 
-	ShaderInterface *shader = new ShaderInterface("Shaders\\vPhongTex.glsl", "Shaders\\fPhongTex.glsl");
+	ShaderInterface *shader = new ShaderInterface("Shaders/vPhongTex.glsl", "Shaders/fPhongTex.glsl");
 	shaderArray->push_back(shader);
 	camera = Camera();
-	Texture *tex = new Texture("GraphicModels\\container2.png");
+	Texture *tex = new Texture("GraphicModels/container2.png");
 	TextureArray->push_back(tex);
 
-	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels\\cube.obj");
+	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj");
 	float poz = 0;
 	for (auto it : meshes)
 	{
@@ -34,7 +34,7 @@ ResourceManager::ResourceManager()
 		
 	}
 	//auto vertexBuffer = new VertexBuffer(meshes[0].second.data(), sizeof(VertexData)*meshes[0].second.size(), GL_TRIANGLES, meshes[0].second.size(), sizeof(GLfloat) * 8);
-	shader = new ShaderInterface("Shaders\\vShader.glsl", "Shaders\\fWhite.glsl");
+	shader = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fWhite.glsl");
 	shaderArray->push_back(shader);
 	Entity *entity = new Entity(glm::vec3(5, 0, 7), vertexBufferArray->at(0), shader);
 	EntityArray->push_back(entity);
