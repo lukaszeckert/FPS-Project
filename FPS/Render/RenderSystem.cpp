@@ -37,7 +37,13 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_DEPTH_TEST);
+
+	glm::vec3 lightColor;
+	lightColor.x = sin(glfwGetTime() * 2.0f);
+	lightColor.y = sin(glfwGetTime() * 0.7f);
+	lightColor.z = sin(glfwGetTime() * 1.3f);
+	//std::cout << lightColor.x << "\n";
+	Entitys->at(1)->color = lightColor;
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	auto V = glm::lookAt(camera->position, camera->dir, camera->up);
 	
@@ -64,9 +70,9 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 
 
 	glm::vec3 lightColor;
-	lightColor.x = 1;//sin(glfwGetTime() * 2.0f);
-	lightColor.y = 1;// sin(glfwGetTime() * 0.7f);
-	lightColor.z = 1;// sin(glfwGetTime() * 1.3f);
+	lightColor.x = sin(glfwGetTime() * 2.0f);
+	lightColor.y = sin(glfwGetTime() * 0.7f);
+	lightColor.z = sin(glfwGetTime() * 1.3f);
 
 	shader->setVec3("objectColor", entity->color);
 	shader->setVec3("lightColor", lighSystem->globalColor);
@@ -81,7 +87,7 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
 	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
 	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
-	shader->setFloat("material.shininess", 32.0f);
+	shader->setFloat("material.shininess", 128.0f);
 
 	//light
 	shader->setVec3("light.ambient",ambientColor);

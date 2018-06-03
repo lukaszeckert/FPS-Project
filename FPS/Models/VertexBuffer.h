@@ -7,7 +7,7 @@ class VertexBuffer
 {
 	GLuint vertexBufferID;
 	
-
+	GLuint vao;
 	GLenum mode;
 	GLsizei count;
 	GLsizei stride;

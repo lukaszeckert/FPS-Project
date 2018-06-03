@@ -9,6 +9,8 @@ GLuint VertexBuffer::getVertexBuffer()
 
 void VertexBuffer::configureVertexAttributes(ShaderInterface *shader)
 {
+	glBindVertexArray(vao);
+	return;
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 	auto vertexPosition = shader->getPostionVertex();
 	if (vertexPosition != -1)
@@ -43,6 +45,20 @@ VertexBuffer::VertexBuffer(const GLvoid *data, GLsizeiptr size, GLenum mode, GLs
 	glGenBuffers(1, &vertexBufferID);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, stride, NULL);
+	
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, stride, ((GLvoid*)(4 * sizeof(GLfloat))));
+	
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, stride, ((GLvoid*)(8 * sizeof(GLfloat))));
+	glBindVertexArray(0);
+
 }
 VertexBuffer::~VertexBuffer()
 {

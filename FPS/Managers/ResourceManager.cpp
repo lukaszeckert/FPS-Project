@@ -17,6 +17,7 @@ ResourceManager::ResourceManager()
 	ShaderInterface *shader = new ShaderInterface("Shaders/vPhongTex.glsl", "Shaders/fPhongTex.glsl");
 	shaderArray->push_back(shader);
 	camera = Camera();
+	camera.position.x = -3;
 	Texture *tex = new Texture("GraphicModels/container2.png");
 	TextureArray->push_back(tex);
 
@@ -34,9 +35,9 @@ ResourceManager::ResourceManager()
 		
 	}
 	//auto vertexBuffer = new VertexBuffer(meshes[0].second.data(), sizeof(VertexData)*meshes[0].second.size(), GL_TRIANGLES, meshes[0].second.size(), sizeof(GLfloat) * 8);
-	shader = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fWhite.glsl");
+	shader = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
 	shaderArray->push_back(shader);
-	Entity *entity = new Entity(glm::vec3(5, 0, 7), vertexBufferArray->at(0), shader);
+	Entity *entity = new Entity(glm::vec3(4, 0, 10), vertexBufferArray->at(0), shader);
 	EntityArray->push_back(entity);
 
 }

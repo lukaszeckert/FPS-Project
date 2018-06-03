@@ -17,8 +17,11 @@ GLuint Texture::readTexture(char * filename)
 	glBindTexture(GL_TEXTURE_2D, tex); //Uaktywnij uchwyt
 									   //Wczytaj obrazek do pamiêci KG skojarzonej z uchwytem
 	//glfwLoadTexture2D(filename, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
-		GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+	
+	//glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
+	//	GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*)image.data());
+	//core profile:
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (const void*)image.data());
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

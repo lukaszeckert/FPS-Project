@@ -12,10 +12,13 @@ void GameManager::windowResize(GLFWwindow* window, int width, int height) {
 	else {
 		gm.aspect = 1;
 	}
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glMatrixMode(GL_MODELVIEW);
 	glViewport(0, 0, width, height);
 }
 GameManager& GameManager::getGameManager() {
-	std::cout << "Get\n";
 	if (gameManager == nullptr)
 	{
 
@@ -23,12 +26,17 @@ GameManager& GameManager::getGameManager() {
 
 
 		GLFWwindow* window; //WskaŸnik na obiekt reprezentuj¹cy okno
-
-	
+		glfwSetErrorCallback([](int, const char* str) {
+			std::cout << "GLFW error: " << str << "\n";
+		});
 		if (!glfwInit()) { //Zainicjuj bibliotekê GLFW
 			fprintf(stderr, "Nie mo¿na zainicjowaæ GLFW.\n");
 			exit(EXIT_FAILURE);
 		}
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 		window = glfwCreateWindow(1280, 720, "LearnOpenGL", NULL, NULL); //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
@@ -41,6 +49,8 @@ GameManager& GameManager::getGameManager() {
 
 		glfwMakeContextCurrent(window); //Od tego momentu kontekst okna staje siê aktywny i polecenia OpenGL bêd¹ dotyczyæ w³aœnie jego.
 		glfwSwapInterval(1); //Czekaj na 1 powrót plamki przed pokazaniem ukrytego bufora
+		glewExperimental = GL_TRUE; //Ubuntu
+
 
 		if (glewInit() != GLEW_OK) { //Zainicjuj bibliotekê GLEW
 			fprintf(stderr, "Nie mo¿na zainicjowaæ GLEW.\n");
@@ -61,24 +71,8 @@ GameManager& GameManager::getGameManager() {
 			exit(-1);
 		}	
 		glfwSetFramebufferSizeCallback(window, windowResize);
-	//	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	//	glfwSetCursorPosCallback(window, mouse_callback);
-	//	glfwSetScrollCallback(window, scroll_callback);
-
-		// tell GLFW to capture our mouse
-		//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-		// glad: load all OpenGL function pointers
-		// ---------------------------------------
-
-
-		// configure global opengl state
-		// -----------------------------
-	
+		glEnable(GL_DEPTH_TEST);
 		
-		std::cout << "Create\n";
-		
-
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
 		,&ResourceManager::getResourceManager());
 		
@@ -112,7 +106,7 @@ void GameManager::runGameLoop()
 }
 GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager)
 : _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager){
-	resourceManager->getCamera()->position = glm::vec3(2.0f, 0.0f, -3.0f);
+	resourceManager->getCamera()->position = glm::vec3(4.0f, 0.0f, -3.0f);
 	resourceManager->getCamera()->dir = glm::vec3(2.0, 0.0, 0.0);
 	resourceManager->getCamera()->up = glm::vec3(0.0f, 1.0f, 0.0f);
 	
