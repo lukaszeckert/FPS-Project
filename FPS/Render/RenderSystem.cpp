@@ -88,14 +88,16 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	//light
 	shader->setVec3("light.ambient",ambientColor);
 	shader->setVec3("light.diffuse", diffuseColor);
-	shader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+	shader->setVec3("light.specular", 0.5f, 0.5f, 0.5f);
 
 	//Texture
 	shader->setInt("materialTex.diffuse", 0);
-	shader->setVec3("materialTex.specular", 1.0f, 0.5f, 0.31f);
-	shader->setFloat("materialTex.shininess", 32.0f);
+	shader->setInt("materialTex.specular", 1);
+	shader->setFloat("materialTex.shininess", 1.0f);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, entity->diffuseMap);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, entity->specularMap);
 
 	entity->vertexBuffer->configureVertexAttributes(shader);
 	entity->vertexBuffer->renderVertexBuffer();

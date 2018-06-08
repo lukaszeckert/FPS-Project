@@ -20,6 +20,8 @@ ResourceManager::ResourceManager()
 	camera.position.x = -3;
 	Texture *tex = new Texture("GraphicModels/container2.png");
 	TextureArray->push_back(tex);
+	Texture *tex_spec = new Texture("GraphicModels/container2_specular.png");
+	TextureArray->push_back(tex_spec);
 
 	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj");
 	float poz = 0;
@@ -33,13 +35,14 @@ ResourceManager::ResourceManager()
 		entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
 		EntityArray->push_back(entity);
 		entity->diffuseMap = tex->getTexture();
-	
+		entity->specularMap = tex_spec->getTexture();
 		
 	}
 	//auto vertexBuffer = new VertexBuffer(meshes[0].second.data(), sizeof(VertexData)*meshes[0].second.size(), GL_TRIANGLES, meshes[0].second.size(), sizeof(GLfloat) * 8);
 	shader = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
 	shaderArray->push_back(shader);
 	Entity *entity = new Entity(glm::vec3(4, 0, 10), vertexBufferArray->at(0), shader);
+	entity->scale = glm::vec3(0.1, 0.1, 0.1);
 	EntityArray->push_back(entity);
 
 }

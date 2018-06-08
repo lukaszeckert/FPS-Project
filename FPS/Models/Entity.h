@@ -29,5 +29,6 @@ public:
 	float shiniess;
 
 	GLuint diffuseMap;
+	GLuint specularMap;
 };
 

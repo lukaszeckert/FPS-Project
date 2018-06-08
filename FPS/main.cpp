@@ -44,7 +44,6 @@ int main(int argc, char **argv)
 	GameManager *gameManager = &GameManager::getGameManager();
 	gameManager->runGameLoop();
 	GameManager::destroyGameManager();
-	for (int i = 0; i < 100000000; i += 2)
-		i--;
+
 	return 0;
 }
