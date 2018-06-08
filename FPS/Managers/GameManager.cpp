@@ -18,6 +18,36 @@ void GameManager::windowResize(GLFWwindow* window, int width, int height) {
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0, 0, width, height);
 }
+void GameManager::wrapperMouseClick(GLFWwindow * window, double xpos, double ypos)
+{
+	auto &gm = GameManager::getGameManager();
+	gm.mouse_callback(window, xpos, ypos);
+}
+void GameManager::mouse_callback(GLFWwindow * window, double xpos, double ypos)
+{
+	static float pxPos = -1;
+	static float pyPos = -1;
+	if (pxPos != -1)
+	{
+		resourceManager->getCamera()->processMouse(xpos - pxPos, pyPos - ypos);	
+	}
+	pxPos = xpos;
+	pyPos = ypos;
+	
+}
+void GameManager::processInput(GLFWwindow * window, float dTime)
+{
+	auto camera = resourceManager->getCamera();
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		camera->processMovement(FORWARD,dTime);
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		camera->processMovement(BACKWARD, dTime);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		camera->processMovement(LEFT, dTime);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		camera->processMovement(RIGHT, dTime);
+
+}
 GameManager& GameManager::getGameManager() {
 	if (gameManager == nullptr)
 	{
@@ -70,11 +100,17 @@ GameManager& GameManager::getGameManager() {
 			glfwTerminate();
 			exit(-1);
 		}	
+
+
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetFramebufferSizeCallback(window, windowResize);
+		glfwSetCursorPosCallback(window, wrapperMouseClick);
+
 		glEnable(GL_DEPTH_TEST);
 		
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
 		,&ResourceManager::getResourceManager());
+		
 		
 	
 		windowResize(window, 1280, 720);
@@ -86,10 +122,10 @@ GameManager& GameManager::getGameManager() {
 
 void GameManager::destroyGameManager()
 {
-	std::cout << "Destroy\n";
 	if (gameManager != nullptr) {
 		glfwTerminate();
 		glfwDestroyWindow(gameManager->_window);
+	
 		delete gameManager;
 
 	}
@@ -97,11 +133,18 @@ void GameManager::destroyGameManager()
 
 void GameManager::runGameLoop()
 {
+	float currentFrame = glfwGetTime();
+	float lastFrame = glfwGetTime();
+	float dTime = 0;
 	while (_running){
 		_running = !glfwWindowShouldClose(_window);
 
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
 		glfwPollEvents();
+		currentFrame = glfwGetTime();
+		dTime = currentFrame - lastFrame;
+		processInput(_window, dTime);
+		lastFrame = currentFrame;
 	}
 }
 GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager)

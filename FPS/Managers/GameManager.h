@@ -4,7 +4,7 @@
 #include <glfw/glfw3.h>
 #include "../Render/RenderSystem.h"
 #include "../Managers/ResourceManager.h"
-
+#include <functional>
 
 class GameManager
 {
@@ -17,6 +17,9 @@ class GameManager
 	float aspect = 1;
 
 	static void windowResize(GLFWwindow* window, int width, int height);
+	static void wrapperMouseClick(GLFWwindow* window, double xpos, double ypos);
+	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	void processInput(GLFWwindow *windows, float dTime);
 
 	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager);
 	~GameManager();

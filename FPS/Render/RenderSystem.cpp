@@ -19,9 +19,6 @@ RenderSystem& RenderSystem::getRenderSystem(GLFWwindow *window)
 	
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-		//glMatrixMode(GL_PROJECTION);
-	//	gluPerspective(75.0f, 1280.0 / 720.0f, 1, 1000);
-
 	}
 	return *renderSystem;
 }
@@ -45,7 +42,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	//std::cout << lightColor.x << "\n";
 	Entitys->at(1)->color = lightColor;
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
-	auto V = glm::lookAt(camera->position, camera->dir, camera->up);
+	auto V = glm::lookAt(camera->position, camera->position+camera->dir, camera->up);
 	
 	for (int i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
