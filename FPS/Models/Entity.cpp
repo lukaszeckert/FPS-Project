@@ -5,7 +5,7 @@ Entity::Entity(glm::vec3 position, VertexBuffer* vertexBuffer, ShaderInterface *
 {
 }
 
-Entity::Entity(glm::vec3 position, VertexBuffer * vertexBuffer, ShaderInterface * shaderInterface, glm::vec3 color) : position(position), vertexBuffer(vertexBuffer), shaderInterface(shaderInterface), color(color)
+Entity::Entity(glm::vec3 position, VertexBuffer * vertexBuffer, ShaderInterface * shaderInterface, glm::vec3 color) : position(position), vertexBuffer(vertexBuffer), shaderInterface(shaderInterface), color(color),scale(glm::vec3(1,1,1)),rotation(0,0,0)
 {
 }
 

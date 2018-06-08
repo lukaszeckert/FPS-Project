@@ -19,6 +19,9 @@ RenderSystem& RenderSystem::getRenderSystem(GLFWwindow *window)
 	
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+		//glMatrixMode(GL_PROJECTION);
+	//	gluPerspective(75.0f, 1280.0 / 720.0f, 1, 1000);
+
 	}
 	return *renderSystem;
 }
@@ -35,18 +38,17 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glm::vec3 lightColor;
-	lightColor.x = sin(glfwGetTime() * 2.0f);
-	lightColor.y = sin(glfwGetTime() * 0.7f);
-	lightColor.z = sin(glfwGetTime() * 1.3f);
-	//std::cout << lightColor.x << "\n";
-	Entitys->at(1)->color = lightColor;
+	
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	auto V = glm::lookAt(camera->position, camera->position+camera->dir, camera->up);
 	
 	for (int i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
 		auto M = translate(glm::mat4(1.0f), it->position);
+		M = glm::rotate(M, glm::radians(it->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+		M = glm::rotate(M, glm::radians(it->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		M = glm::rotate(M, glm::radians(it->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		M = glm::scale(M, it->scale);
 		render(it, P, V, M, it->shaderInterface,camera->position);
 		
 	}
@@ -66,10 +68,7 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	glUniformMatrix4fv(shader->getM(), 1, false, glm::value_ptr(M));
 
 
-	glm::vec3 lightColor;
-	lightColor.x = sin(glfwGetTime() * 2.0f);
-	lightColor.y = sin(glfwGetTime() * 0.7f);
-	lightColor.z = sin(glfwGetTime() * 1.3f);
+	glm::vec3 lightColor(1,1,1);
 
 	shader->setVec3("objectColor", entity->color);
 	shader->setVec3("lightColor", lighSystem->globalColor);

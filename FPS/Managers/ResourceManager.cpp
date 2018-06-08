@@ -23,12 +23,14 @@ ResourceManager::ResourceManager()
 
 	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj");
 	float poz = 0;
+	for(int i=0;i<4;++i)
 	for (auto it : meshes)
 	{
 		
 		auto vertexBuffer = new VertexBuffer(it.second.data(), sizeof(VertexData)*it.second.size(), GL_TRIANGLES, it.second.size(), sizeof(VertexData));
 		vertexBufferArray->push_back(vertexBuffer);
-		Entity *entity = new Entity(glm::vec3(0, 0, 5), vertexBuffer, shader,glm::vec3(0.0,1.0,0.5));
+		Entity *entity = new Entity(glm::vec3(0, 0, (i-2)*5), vertexBuffer, shader,glm::vec3(0.0,1.0,0.5));
+		entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
 		EntityArray->push_back(entity);
 		entity->diffuseMap = tex->getTexture();
 	

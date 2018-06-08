@@ -149,9 +149,10 @@ void GameManager::runGameLoop()
 }
 GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager)
 : _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager){
-	resourceManager->getCamera()->position = glm::vec3(4.0f, 0.0f, -3.0f);
-	resourceManager->getCamera()->dir = glm::vec3(2.0, 0.0, 0.0);
-	resourceManager->getCamera()->up = glm::vec3(0.0f, 1.0f, 0.0f);
+//	resourceManager->getCamera()->position = glm::vec3(0.0f, 0.0f, 0.0f);
+//	resourceManager->getCamera()->dir = glm::vec3(0.0, 0.0, 1.0);
+//	resourceManager->getCamera()->up = glm::vec3(0.0f, 1.0f, 0.0f);
+//	resourceManager->getCamera()->updateCameraVectors();
 	
 };
 GameManager::~GameManager() {
