@@ -47,11 +47,23 @@ GLint ShaderInterface::getColor()
 {
 	return uColor;
 }
+void ShaderInterface::setVec3(std::string name, glm::vec3 a)
+{
+	setVec3((char*)name.c_str(), a);
+}
+void ShaderInterface::setVec3(std::string name, float a, float b, float c)
+{
+	setVec3((char*)name.c_str(), a, b, c);
+}
 void ShaderInterface::setVec3(char * name, float a, float b, float c)
 {
 	auto id = glGetUniformLocation(shader->getProgramHandle(), name);
 	glUniform3f(id, a, b, c);
 
+}
+void ShaderInterface::setFloat(std::string name, float f)
+{
+	setFloat((char*)name.c_str(), f);
 }
 void ShaderInterface::setVec3(char *name, glm::vec3 a)
 {
@@ -61,6 +73,10 @@ void ShaderInterface::setFloat(char *name, float f)
 {
 	auto id = glGetUniformLocation(shader->getProgramHandle(), name);
 	glUniform1f(id, f);
+}
+void ShaderInterface::setInt(std::string name, int f)
+{
+	setInt((char*)name.c_str(), f);
 }
 void ShaderInterface::setInt(char *name, int f)
 {

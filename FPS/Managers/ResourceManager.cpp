@@ -11,10 +11,13 @@ ResourceManager::ResourceManager()
 	TextureArray = new std::vector<Texture*>();
 
 	lightSystem = LightSystem::getLightSystem();
-	lightSystem->globalColor = glm::vec3(1.0, 1.0, 0);
-	lightSystem->globalPosition = glm::vec3(5, 0, 7);
+	auto light = lightSystem->createPointLighs(glm::vec3(4, 0, 5));
+	light->active = true;
+	light->linear = 0.07;
+	light->quadratic = 0.002;
+	lightSystem->addPointLight(light);
 
-	ShaderInterface *shader = new ShaderInterface("Shaders/vPhongTex.glsl", "Shaders/fPhongTex.glsl");
+	ShaderInterface *shader = new ShaderInterface("Shaders/vMultiLight.glsl", "Shaders/fMultiLight.glsl");
 	shaderArray->push_back(shader);
 	camera = Camera();
 	camera.position.x = -3;

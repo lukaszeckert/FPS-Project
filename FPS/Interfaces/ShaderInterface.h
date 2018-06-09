@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 
 class ShaderInterface
 {
@@ -34,8 +35,13 @@ public:
 	GLint getNormal();
 	GLint getTexCoord();
 	GLint getColor();
+	void setVec3(std::string name, glm::vec3 a);
+	void setVec3(std::string name, float a,float b, float c);
+
 	void setVec3(char *name, float a, float b, float c);
+	void setFloat(std::string name, float f);
 	void setFloat(char * name, float f);
+	void setInt(std::string name, int f);
 	void setInt(char * name, int f);
 	void setVec3(char *name, glm::vec3 a);
 	

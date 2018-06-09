@@ -25,8 +25,8 @@ void GameManager::wrapperMouseClick(GLFWwindow * window, double xpos, double ypo
 }
 void GameManager::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 {
-	static float pxPos = -1;
-	static float pyPos = -1;
+	static double pxPos = -1;
+	static double pyPos = -1;
 	if (pxPos != -1)
 	{
 		resourceManager->getCamera()->processMouse(xpos - pxPos, pyPos - ypos);	

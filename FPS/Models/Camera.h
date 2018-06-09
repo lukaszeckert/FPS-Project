@@ -10,11 +10,11 @@ enum Camera_Movement {
 	RIGHT
 };
 // Default camera values
-const float YAW = -90.0f;
-const float PITCH = 0.0f;
-const float SPEED = 2.5f;
-const float SENSITIVITY = 0.1f;
-const float ZOOM = 45.0f;
+const double YAW = -90.0f;
+const double PITCH = 0.0f;
+const double SPEED = 2.5f;
+const double SENSITIVITY = 0.1f;
+const double ZOOM = 45.0f;
 struct Camera {
 
 	glm::vec3 position;
@@ -23,16 +23,16 @@ struct Camera {
 	
 	glm::vec3 right;
 	glm::vec3 worldUp;
-	float yaw;
-	float pitch;
+	double yaw;
+	double pitch;
 
-	float movementSpeed;
-	float mouseSensitivity;
+	double movementSpeed;
+	double mouseSensitivity;
 
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 dir = glm::vec3(0,0,1), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f),  float yaw = YAW, float pitch = PITCH);
 	glm::mat4 getViewMatrix();
 	void processMovement(Camera_Movement direction, float deltaTime);
-	void processMouse(float xoffset, float toffset, bool constraintPitch = true);
+	void processMouse(double xoffset, double toffset, bool constraintPitch = true);
 
 	void updateCameraVectors();
 

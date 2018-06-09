@@ -42,7 +42,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	auto V = glm::lookAt(camera->position, camera->position+camera->dir, camera->up);
 	
-	for (int i = 0; i < Entitys->size(); ++i) {
+	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
 		auto M = translate(glm::mat4(1.0f), it->position);
 		M = glm::rotate(M, glm::radians(it->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -68,27 +68,57 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	glUniformMatrix4fv(shader->getM(), 1, false, glm::value_ptr(M));
 
 
-	glm::vec3 lightColor(1,1,1);
 
 	shader->setVec3("objectColor", entity->color);
-	shader->setVec3("lightColor", lighSystem->globalColor);
-
-	shader->setVec3("lightPos", lighSystem->globalPosition);
 	shader->setVec3("viewPos", cameraPosition);
 
 	//materials
-
-	glm::vec3 diffuseColor = lightColor   * glm::vec3(0.5f); // decrease the influence
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.5f); // low influence
+	//TODO add material information to entity class 
 	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
 	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
 	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
 	shader->setFloat("material.shininess", 128.0f);
 
 	//light
-	shader->setVec3("light.ambient",ambientColor);
-	shader->setVec3("light.diffuse", diffuseColor);
-	shader->setVec3("light.specular", 0.5f, 0.5f, 0.5f);
+	int pointLightsNumber = 0;
+	for (auto it : *lighSystem->getPointLights()) {
+		if (it->active == true)
+		{
+			
+			shader->setVec3("pointLights["+std::to_string(pointLightsNumber)+"].position", it->position);
+			shader->setVec3("pointLights["+std::to_string(pointLightsNumber)+"].ambient", it->ambient);
+			shader->setVec3("pointLights[" + std::to_string(pointLightsNumber) + "].diffuse", it->diffuse);
+			shader->setVec3("pointLights[" + std::to_string(pointLightsNumber) + "].specular", it->specular);
+
+			shader->setFloat("pointLights[" + std::to_string(pointLightsNumber) + "].constant", it->constant);
+			shader->setFloat("pointLights[" + std::to_string(pointLightsNumber) + "].linear", it->linear);
+			shader->setFloat("pointLights[" + std::to_string(pointLightsNumber) + "].quadratic", it->quadratic);
+			pointLightsNumber++;
+		}
+	}
+	shader->setInt("point_lights_number", pointLightsNumber);
+
+	auto dirLight = lighSystem->getDirectionalLight();
+	shader->setVec3("dirLight.direction", dirLight->direction);
+	shader->setVec3("dirLight.ambient", dirLight->ambient);
+	shader->setVec3("dirLight.diffuse", dirLight->diffuse);
+	shader->setVec3("dirLight.specular", dirLight->specular);
+
+	auto spotLight = lighSystem->getSpotLight();
+	shader->setVec3("spotLight.position", spotLight->position);
+	shader->setVec3("spotLight.direction", spotLight->direction);
+	
+	shader->setFloat("spotLight.cutOff", spotLight->cutOff);
+	shader->setFloat("spotLight.outerCutOff", spotLight->outerCutOff);
+	shader->setFloat("spotLight.constant", spotLight->constant);
+	shader->setFloat("spotLight.linear", spotLight->linear); 
+	shader->setFloat("spotLight.quadratic", spotLight->quadratic);
+
+	shader->setVec3("spotLight.ambient", spotLight->ambient);
+	shader->setVec3("spotLight.diffuse", spotLight->diffuse);
+	shader->setVec3("spotLight.specular", spotLight->specular);
+
+
 
 	//Texture
 	shader->setInt("materialTex.diffuse", 0);

@@ -25,7 +25,7 @@ void Camera::processMovement(Camera_Movement direction, float deltaTime)
 	updateCameraVectors();
 }
 
-void Camera::processMouse(float xoffset, float yoffset, bool constrainPitch)
+void Camera::processMouse(double xoffset, double yoffset, bool constrainPitch)
 {
 	xoffset *= mouseSensitivity;
 	yoffset *= mouseSensitivity;

@@ -1,11 +1,12 @@
 #include "PointLight.h"
 
-PointLight::PointLight(glm::vec3 postion, glm::vec3 color): position(postion),color(color)
-{
-
-}
 
 PointLight::PointLight()
+{
+}
+
+PointLight::PointLight(glm::vec3 postion, float constant, float linear, float quadratic, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular) :
+	position(postion), constant(constant), linear(linear), quadratic(quadratic), ambient(ambient), diffuse(diffuse), specular(specular)
 {
 }
 
