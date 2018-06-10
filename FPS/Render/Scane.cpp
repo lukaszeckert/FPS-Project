@@ -36,6 +36,12 @@ void Scane::createObjects()
 	entity->scale = glm::vec3(0.1, 0.1, 0.1);
 	resourceManager->getEntityArray()->push_back(entity);
 
+	object = ObjectLoaderInterface::loadObjFile("GraphicModels/nanosuit.obj", resourceManager->getTextureArray());
+
+	entity = new Entity(glm::vec3(0, 0, 10), object, shader_color);
+//	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+	resourceManager->getEntityArray()->push_back(entity);
+
 /*		auto vertexBuffer = new VertexBuffer(it->points.data(), sizeof(VertexData)*it->points.size(), GL_TRIANGLES, it->points.size(), sizeof(VertexData));
 			vertexBufferArray->push_back(vertexBuffer);
 			Entity *entity = new Entity(glm::vec3(0, 0, (i - 2) * 5), vertexBuffer, shader, glm::vec3(0.0, 1.0, 0.5));
