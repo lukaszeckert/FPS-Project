@@ -28,6 +28,6 @@ class RenderSystem
 public:
 	static RenderSystem& getRenderSystem(GLFWwindow *window);
 	static void destroyRenderSystem();
-	void render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 position);
+	void render(Mesh* mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 position);
 	void renderAll(std::vector<Entity*>* Entitys, Camera *camera,float aspect);
 };

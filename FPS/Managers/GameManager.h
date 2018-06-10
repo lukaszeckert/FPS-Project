@@ -4,6 +4,7 @@
 #include <glfw/glfw3.h>
 #include "../Render/RenderSystem.h"
 #include "../Managers/ResourceManager.h"
+#include "../Render/Scane.h"
 #include <functional>
 
 class GameManager
@@ -21,7 +22,7 @@ class GameManager
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void processInput(GLFWwindow *windows, float dTime);
 
-	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager);
+	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager, Scane* scane);
 	~GameManager();
 public:
 	static GameManager& getGameManager();

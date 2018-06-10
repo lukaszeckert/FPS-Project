@@ -49,12 +49,13 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 		M = glm::rotate(M, glm::radians(it->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		M = glm::rotate(M, glm::radians(it->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		M = glm::scale(M, it->scale);
-		render(it, P, V, M, it->shaderInterface,camera->position);
+		for(auto mesh : it->object->meshes)
+			render(mesh, P, V, M, it->shaderInterface,camera->position);
 		
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());
 }
-void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition)
+void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition)
 {
 	auto lighSystem = LightSystem::getLightSystem();
 
@@ -69,15 +70,15 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 
 
 
-	shader->setVec3("objectColor", entity->color);
+	shader->setVec3("objectColor", mesh->color);
 	shader->setVec3("viewPos", cameraPosition);
 
 	//materials
 	//TODO add material information to entity class 
-	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
-	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
-	shader->setFloat("material.shininess", 128.0f);
+//	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
+//	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+//	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
+//	shader->setFloat("material.shininess", 128.0f);
 
 	//light
 	int pointLightsNumber = 0;
@@ -125,11 +126,11 @@ void RenderSystem::render(Entity *entity, glm::mat4x4 P, glm::mat4x4 V, glm::mat
 	shader->setInt("materialTex.specular", 1);
 	shader->setFloat("materialTex.shininess", 1.0f);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, entity->diffuseMap);
+	glBindTexture(GL_TEXTURE_2D, mesh->tex->getTexture());
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, entity->specularMap);
+	glBindTexture(GL_TEXTURE_2D, mesh->tex_spec->getTexture());
 
-	entity->vertexBuffer->configureVertexAttributes(shader);
-	entity->vertexBuffer->renderVertexBuffer();
+	mesh->vertexBuffer->configureVertexAttributes(shader); //TODO change to configureVertexAttributes()
+	mesh->vertexBuffer->renderVertexBuffer();
 
 }

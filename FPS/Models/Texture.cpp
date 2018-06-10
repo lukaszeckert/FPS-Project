@@ -1,5 +1,6 @@
 #include "Texture.h"
 
+std::map<std::string, Texture*> Texture::texture_cache;
 GLuint Texture::readTexture(const char * filename)
 {
 	GLuint tex = 1;
@@ -36,15 +37,31 @@ GLuint Texture::readTexture(const char * filename)
 Texture::Texture(const char * filename)
 {
 	tex = readTexture(filename);
+	std::cout << "Loaded texture: " << filename << "\n";
 }
 
 Texture::~Texture()
 {
 	glDeleteTextures(1, &tex);
+	std::cout << "Deleted texture: " << tex;
 }
 
 GLuint Texture::getTexture()
 {
 	return tex;
+}
+
+Texture * Texture::getTexture(std::string name)
+{
+	if (texture_cache.find(name) == texture_cache.end())
+		texture_cache[name] = new Texture(name.c_str());
+
+	return texture_cache[name];
+}
+
+void Texture::free()
+{
+	for (auto it : texture_cache)
+		delete it.second;
 }
 

@@ -64,11 +64,11 @@ Object* ObjectLoaderInterface::loadObjFile(const char * filename, std::vector<Te
 			file << "\n";
 
 			std::string tex_path = "GraphicModels/" + curMesh.MeshMaterial.map_Ka;
-			Texture *tex = new Texture(tex_path.c_str());
+			Texture *tex = Texture::getTexture(tex_path);
 			TextureArray->push_back(tex);
 
 			std::string tex_spec_path = "GraphicModels/" + curMesh.MeshMaterial.map_Ks;
-			Texture *tex_spec = new Texture(tex_spec_path.c_str());
+			Texture *tex_spec = Texture::getTexture(tex_spec_path);
 			TextureArray->push_back(tex_spec);
 
 			object->addMesh(new Mesh(curMesh.MeshName, mesh_points, tex, tex_spec));

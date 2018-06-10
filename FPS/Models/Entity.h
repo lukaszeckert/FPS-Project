@@ -2,6 +2,7 @@
 
 #include "../Models/VertexBuffer.h"
 #include "../Interfaces/ShaderInterface.h"
+#include "../Models/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
 class Entity
@@ -11,24 +12,25 @@ class Entity
 
 
 public:
-	Entity(glm::vec3 position, VertexBuffer* vertexBuffer, ShaderInterface *shaderInterface);
-	Entity(glm::vec3 position, VertexBuffer* vertexBuffer, ShaderInterface *shaderInterface, glm::vec3 color);
+	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface);
+	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, glm::vec3 color);
 	~Entity();
 	
-	VertexBuffer* vertexBuffer;
+	void setColor(glm::vec3 color);
+	//VertexBuffer* vertexBuffer;
+	Object* object;
 	ShaderInterface* shaderInterface;
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 rotation;
-	glm::vec3 color;
-
+	
 	//Material
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
-	float shiniess;
+	//glm::vec3 ambient;
+	//glm::vec3 diffuse;
+	//glm::vec3 specular;
+	//float shiniess;
 
-	GLuint diffuseMap;
-	GLuint specularMap;
+	//GLuint diffuseMap;
+	//GLuint specularMap;
 };
 

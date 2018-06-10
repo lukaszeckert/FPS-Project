@@ -109,7 +109,7 @@ GameManager& GameManager::getGameManager() {
 		glEnable(GL_DEPTH_TEST);
 		
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
-		,&ResourceManager::getResourceManager());
+		,&ResourceManager::getResourceManager(), new Scane());
 		
 		
 	
@@ -147,12 +147,9 @@ void GameManager::runGameLoop()
 		lastFrame = currentFrame;
 	}
 }
-GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager)
+GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager, Scane* scane)
 : _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager){
-//	resourceManager->getCamera()->position = glm::vec3(0.0f, 0.0f, 0.0f);
-//	resourceManager->getCamera()->dir = glm::vec3(0.0, 0.0, 1.0);
-//	resourceManager->getCamera()->up = glm::vec3(0.0f, 1.0f, 0.0f);
-//	resourceManager->getCamera()->updateCameraVectors();
+	scane->createScane();
 	
 };
 GameManager::~GameManager() {

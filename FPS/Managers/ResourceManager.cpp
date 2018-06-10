@@ -6,15 +6,15 @@ ResourceManager *ResourceManager::resourceManager = nullptr;
 ResourceManager::ResourceManager()
 {
 	shaderArray = new std::vector<ShaderInterface*>();
-	vertexBufferArray = new std::vector<VertexBuffer*>();
+	//vertexBufferArray = new std::vector<VertexBuffer*>();
 	EntityArray = new std::vector<Entity*>();
 	TextureArray = new std::vector<Texture*>();
-
+	ObjectArray = new std::vector<Object*>();
 	lightSystem = LightSystem::getLightSystem();
-	auto light = lightSystem->createPointLighs(glm::vec3(4, 0, 5));
+	/*auto light = lightSystem->createPointLighs(glm::vec3(4, 0, 5));
 	light->active = true;
-	light->linear = 0.07;
-	light->quadratic = 0.002;
+	light->linear = 0.7;
+	light->quadratic = 0.2;
 	lightSystem->addPointLight(light);
 
 	ShaderInterface *shader = new ShaderInterface("Shaders/vMultiLight.glsl", "Shaders/fMultiLight.glsl");
@@ -43,7 +43,7 @@ ResourceManager::ResourceManager()
 	Entity *entity = new Entity(glm::vec3(4, 0, 10), vertexBufferArray->at(0), shader);
 	entity->scale = glm::vec3(0.1, 0.1, 0.1);
 	EntityArray->push_back(entity);
-
+	*/
 }
 
 
@@ -51,14 +51,20 @@ ResourceManager::~ResourceManager()
 {
 	for (auto it = shaderArray->begin(); it != shaderArray->end(); ++it)
 		delete (*it);
-	for (auto it = vertexBufferArray->begin(); it != vertexBufferArray->end(); ++it)
-		delete (*it);
+//	for (auto it = vertexBufferArray->begin(); it != vertexBufferArray->end(); ++it)
+//		delete (*it);
 	for (auto it = EntityArray->begin(); it != EntityArray->end(); ++it)
 		delete (*it);
 
+	for(auto it = ObjectArray->begin(); it != ObjectArray->end(); ++it)
+		delete (*it);
 	delete shaderArray;
-	delete  vertexBufferArray;
+//	delete  vertexBufferArray;
 	delete EntityArray;
+	delete ObjectArray;
+
+	LightSystem::destroyLightSystem();
+
 }
 
 std::vector<ShaderInterface*>* ResourceManager::getShaderArray()
@@ -66,13 +72,21 @@ std::vector<ShaderInterface*>* ResourceManager::getShaderArray()
 	return shaderArray;
 }
 
-std::vector<VertexBuffer*>* ResourceManager::getBufferArray()
+/*std::vector<VertexBuffer*>* ResourceManager::getBufferArray()
 {
 	return vertexBufferArray;
-}
+}*/
 std::vector<Entity *>* ResourceManager::getEntityArray()
 {
 	return EntityArray;
+}
+std::vector<Texture*>* ResourceManager::getTextureArray()
+{
+	return TextureArray;
+}
+std::vector<Object*>* ResourceManager::getObjectArray()
+{
+	return ObjectArray;
 }
 ResourceManager & ResourceManager::getResourceManager()
 {
@@ -91,6 +105,11 @@ void ResourceManager::destroyResourceManager()
 
 Camera * ResourceManager::getCamera()
 {
-	return &camera;
+	return camera;
+}
+
+void ResourceManager::setCamera(Camera* camera)
+{
+	this->camera = camera;
 }
 
