@@ -1,11 +1,8 @@
 #include "ObjectLoaderInterface.h"
 
-
-
-
-std::vector<std::pair<std::string, std::vector<VertexData>>> ObjectLoaderInterface::loadObjFile(const char * filename)
+Object* ObjectLoaderInterface::loadObjFile(const char * filename, std::vector<Texture *> *TextureArray)
 {
-	std::vector<std::pair<std::string,std::vector<VertexData>>> res;
+	Object *object = new Object();
 	objl::Loader Loader;
 	bool loadout = Loader.LoadFile(filename);
 
@@ -40,15 +37,12 @@ std::vector<std::pair<std::string, std::vector<VertexData>>> ObjectLoaderInterfa
 					glm::vec3(curMesh.Vertices[j].Normal.X, curMesh.Vertices[j].Normal.Y, curMesh.Vertices[j].Normal.Z),
 					glm::vec2(curMesh.Vertices[j].TextureCoordinate.X, curMesh.Vertices[j].TextureCoordinate.Y));
 				points.push_back(vd);
-		//			
-		//			glm::vec2(curMesh.Vertices[j].TextureCoordinate.X, curMesh.Vertices[j].TextureCoordinate.Y));
+	
 			}
 
-			for (size_t j = 0; j < curMesh.Indices.size(); j += 3)
+			for (size_t j = 0; j < curMesh.Indices.size(); j++)
 			{
 				mesh_points.push_back(*points[curMesh.Indices[j]]);
-				mesh_points.push_back(*points[curMesh.Indices[j+1]]);
-				mesh_points.push_back(*points[curMesh.Indices[j+2]]);
 			}
 
 			// Print Material
@@ -68,7 +62,16 @@ std::vector<std::pair<std::string, std::vector<VertexData>>> ObjectLoaderInterfa
 
 			// Leave a space to separate from the next mesh
 			file << "\n";
-			res.push_back(make_pair(std::string(curMesh.MeshName), mesh_points));
+
+			std::string tex_path = "GraphicModels/" + curMesh.MeshMaterial.map_Ka;
+			Texture *tex = new Texture(tex_path.c_str());
+			TextureArray->push_back(tex);
+
+			std::string tex_spec_path = "GraphicModels/" + curMesh.MeshMaterial.map_Ks;
+			Texture *tex_spec = new Texture(tex_spec_path.c_str());
+			TextureArray->push_back(tex_spec);
+
+			object->addMesh(new Mesh(curMesh.MeshName, mesh_points, tex, tex_spec));
 		}
 
 		// Close File
@@ -87,5 +90,5 @@ std::vector<std::pair<std::string, std::vector<VertexData>>> ObjectLoaderInterfa
 		// Close File
 		file.close();
 	}
-	return res;
+	return object;
 }

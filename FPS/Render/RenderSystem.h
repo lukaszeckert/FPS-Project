@@ -1,6 +1,6 @@
 #pragma once
 #define GLFW_INCLUDE_GLU
-#include <glew/glew.h>
+#include <GL/glew.h>
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>

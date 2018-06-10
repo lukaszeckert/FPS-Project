@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream> 
-#include <glew/glew.h>
+#include <GL/glew.h>
 #include <glfw/glfw3.h>
 #include "../Render/RenderSystem.h"
 #include "../Managers/ResourceManager.h"

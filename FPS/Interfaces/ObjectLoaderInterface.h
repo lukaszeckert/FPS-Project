@@ -4,6 +4,9 @@
 
 #include "../Loaders/OBJ_Loader.h"
 #include "../Models/VertexData.h"
+#include "../Models/Object.h"
+#include "../Models/Texture.h"
+#include "../Managers/ResourceManager.h"
 
 #include <iostream>
 #include <vector>
@@ -11,7 +14,7 @@
 class ObjectLoaderInterface
 {
 public:
-	static std::vector<std::pair<std::string, std::vector<VertexData>>> loadObjFile(const char* filename);
+	static Object* loadObjFile(const char* filename, std::vector<Texture *> *TextureArray);
 	//ObjectLoaderInterface();
 	//~ObjectLoaderInterface();
 };

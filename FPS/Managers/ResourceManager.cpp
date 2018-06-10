@@ -21,24 +21,20 @@ ResourceManager::ResourceManager()
 	shaderArray->push_back(shader);
 	camera = Camera();
 	camera.position.x = -3;
-	Texture *tex = new Texture("GraphicModels/container2.png");
-	TextureArray->push_back(tex);
-	Texture *tex_spec = new Texture("GraphicModels/container2_specular.png");
-	TextureArray->push_back(tex_spec);
+	
 
-	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj");
+	auto meshes = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", TextureArray);
 	float poz = 0;
 	for(int i=0;i<4;++i)
-	for (auto it : meshes)
+	for (auto it : meshes->meshes)
 	{
-		
-		auto vertexBuffer = new VertexBuffer(it.second.data(), sizeof(VertexData)*it.second.size(), GL_TRIANGLES, it.second.size(), sizeof(VertexData));
+		auto vertexBuffer = new VertexBuffer(it->points.data(), sizeof(VertexData)*it->points.size(), GL_TRIANGLES, it->points.size(), sizeof(VertexData));
 		vertexBufferArray->push_back(vertexBuffer);
 		Entity *entity = new Entity(glm::vec3(0, 0, (i-2)*5), vertexBuffer, shader,glm::vec3(0.0,1.0,0.5));
 		entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
 		EntityArray->push_back(entity);
-		entity->diffuseMap = tex->getTexture();
-		entity->specularMap = tex_spec->getTexture();
+		entity->diffuseMap = it->tex->getTexture();
+		entity->specularMap = it->tex_spec->getTexture();
 		
 	}
 	//auto vertexBuffer = new VertexBuffer(meshes[0].second.data(), sizeof(VertexData)*meshes[0].second.size(), GL_TRIANGLES, meshes[0].second.size(), sizeof(GLfloat) * 8);

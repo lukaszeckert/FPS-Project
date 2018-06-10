@@ -1,21 +1,21 @@
 #include "Texture.h"
 
-GLuint Texture::readTexture(char * filename)
+GLuint Texture::readTexture(const char * filename)
 {
 	GLuint tex = 1;
 
 	glActiveTexture(GL_TEXTURE0);
 
-	//Wczytanie do pamiêci komputera
+	//Wczytanie do pamiï¿½ci komputera
 	std::vector<unsigned char> image;   //Alokuj wektor do wczytania obrazka
-	unsigned width, height;   //Zmienne do których wczytamy wymiary obrazka
+	unsigned width, height;   //Zmienne do ktï¿½rych wczytamy wymiary obrazka
 							  //Wczytaj obrazek
 	unsigned error = lodepng::decode(image, width, height, filename);
 	
-	//Import do pamiêci karty graficznej
+	//Import do pamiï¿½ci karty graficznej
 	glGenTextures(1, &tex); //Zainicjuj jeden uchwyt
 	glBindTexture(GL_TEXTURE_2D, tex); //Uaktywnij uchwyt
-									   //Wczytaj obrazek do pamiêci KG skojarzonej z uchwytem
+									   //Wczytaj obrazek do pamiï¿½ci KG skojarzonej z uchwytem
 	//glfwLoadTexture2D(filename, 0);
 	
 	//glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0,
@@ -33,7 +33,7 @@ GLuint Texture::readTexture(char * filename)
 
 }
 
-Texture::Texture(char * filename)
+Texture::Texture(const char * filename)
 {
 	tex = readTexture(filename);
 }

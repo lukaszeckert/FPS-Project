@@ -1,14 +1,14 @@
 #pragma once
-#include <GLEW/glew.h>
+#include <GL/glew.h>
 #include "../Loaders/lodepng.h"
 #include <vector>
 class Texture
 {
 	GLuint tex;
-	GLuint readTexture(char* filename);
+	GLuint readTexture(const char* filename);
 
 public:
-	Texture(char *filename);
+	Texture(const char *filename);
 	~Texture();
 	GLuint getTexture();
 };
