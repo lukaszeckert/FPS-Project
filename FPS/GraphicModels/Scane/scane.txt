@@ -1,0 +1,6 @@
+# o id position.x position.y position.z obj.obj
+# l id position.x position.y position.z layer.txt
+# e id position.x position.y position.z scale.x scale.y scale.z rotation.x rotation.y rotation.z obj_id
+o 1 0 2 0 GraphicModels/floor.obj
+o 2 0 0 0 GraphicModels/SciFi_Wall.obj
+l 1 0 0 0 GraphicModels/Scane/layer_floor.txt

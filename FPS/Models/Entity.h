@@ -12,11 +12,11 @@ class Entity
 
 
 public:
+
 	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface);
 	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, glm::vec3 color);
 	~Entity();
 	
-	void setColor(glm::vec3 color);
 	//VertexBuffer* vertexBuffer;
 	Object* object;
 	ShaderInterface* shaderInterface;
@@ -24,6 +24,7 @@ public:
 	glm::vec3 scale;
 	glm::vec3 rotation;
 	
+	glm::vec3 color;
 	//Material
 	//glm::vec3 ambient;
 	//glm::vec3 diffuse;

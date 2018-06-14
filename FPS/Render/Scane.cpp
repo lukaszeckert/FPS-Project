@@ -1,29 +1,47 @@
 #include "Scane.h"
 
+
 void Scane::createShaders()
 {
 	shader = new ShaderInterface("Shaders/vMultiLight.glsl", "Shaders/fMultiLight.glsl");
-	shader_color = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
+	//shader_color = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
 	auto shaderArray = resourceManager->getShaderArray();
 	shaderArray->push_back(shader);
-	shaderArray->push_back(shader_color);
+	//shaderArray->push_back(shader_color);
 }
  
 void Scane::createLights()
 {
 	auto lightSystem = LightSystem::getLightSystem();
-	auto light = lightSystem->createPointLighs(glm::vec3(4, 0, 5));
+	auto light = lightSystem->createPointLighs(glm::vec3(-4, 2, 5));
 	light->active = true;
-	light->linear = 0.7;
-	light->quadratic = 0.2;
+	light->linear = 0.007;
+	light->quadratic = 0.0002;
+	light->diffuse = glm::vec3(1, 1, 1);
+	light->ambient = glm::vec3(1, 1, 1);
+	light->specular = glm::vec3(1, 1, 1);
+	lightSystem->addPointLight(light);
+
+	light = lightSystem->createPointLighs(glm::vec3(4, 2, 5));
+	light->active = true;
+	light->linear = 0.007;
+	light->quadratic = 0.0002;
+	light->diffuse = glm::vec3(1, 1, 1);
+	light->ambient = glm::vec3(1, 1, 1);
+	light->specular = glm::vec3(1, 1, 1);
 	lightSystem->addPointLight(light);
 
 }
 
-void Scane::createObjects()
+void Scane::createObjects(std::vector<ObjectData> objects)
 {
-	
-	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", resourceManager->getTextureArray());
+	for (auto ob : objects)
+	{
+		auto object = ObjectLoaderInterface::loadObjFile(ob.filename.c_str(), resourceManager->getTextureArray());
+		resourceManager->getObjectArray()->push_back(object);
+		object_map[ob.id] = object;
+	}
+/*	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", resourceManager->getTextureArray());
 	float poz = 0;
 	for (int i = 0; i < 4; ++i)
 	{
@@ -32,17 +50,31 @@ void Scane::createObjects()
 		resourceManager->getEntityArray()->push_back(entity);
 
 	}
-	Entity* entity = new Entity(glm::vec3(4, 0, 10), object, shader_color);
+	Entity* entity = new Entity(glm::vec3(4, 15, 5), object, shader_color);
 	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+	entity->color = glm::vec3(0, 1, 0);
 	resourceManager->getEntityArray()->push_back(entity);
 
-	object = ObjectLoaderInterface::loadObjFile("GraphicModels/nanosuit.obj", resourceManager->getTextureArray());
+	entity = new Entity(glm::vec3(-4, 15, 5), object, shader_color);
+	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+	entity->color = glm::vec3(1, 0, 0);
+	resourceManager->getEntityArray()->push_back(entity);
 
-	entity = new Entity(glm::vec3(0, 0, 10), object, shader_color);
+//	object = ObjectLoaderInterface::loadObjFile("GraphicModels/nanosuit.obj", resourceManager->getTextureArray());
+
+//	entity = new Entity(glm::vec3(0, 0, 10), object, shader);
 //	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+//	resourceManager->getEntityArray()->push_back(entity);
+
+	object = ObjectLoaderInterface::loadObjFile("GraphicModels/floor.obj", resourceManager->getTextureArray());
+	entity = new Entity(glm::vec3(0, 0, 5), object, shader);
+	//	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+	resourceManager->getEntityArray()->push_back(entity);
+	entity = new Entity(glm::vec3(2, 0, 5), object, shader);
+	//	entity->scale = glm::vec3(0.1, 0.1, 0.1);
 	resourceManager->getEntityArray()->push_back(entity);
 
-/*		auto vertexBuffer = new VertexBuffer(it->points.data(), sizeof(VertexData)*it->points.size(), GL_TRIANGLES, it->points.size(), sizeof(VertexData));
+	/*		auto vertexBuffer = new VertexBuffer(it->points.data(), sizeof(VertexData)*it->points.size(), GL_TRIANGLES, it->points.size(), sizeof(VertexData));
 			vertexBufferArray->push_back(vertexBuffer);
 			Entity *entity = new Entity(glm::vec3(0, 0, (i - 2) * 5), vertexBuffer, shader, glm::vec3(0.0, 1.0, 0.5));
 			entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
@@ -57,7 +89,26 @@ void Scane::createObjects()
 			entity->scale = glm::vec3(0.1, 0.1, 0.1);
 			EntityArray->push_back(entity);
 			*/
+	
+}
+void Scane::createLayers(std::vector<LayerData> layers)
+{
+	for (auto la : layers)
+	{
+		
+		auto layer = ScaneLoader::loadLayer(la.filename);
+		glm::vec3 offset = layer.offset;
 
+		for(int row=0;row<layer.objects.size(); ++row)
+			for (int col=0;col<layer.objects[row].size();++col)
+			{
+				auto object = object_map[layer.objects[row][col]];
+				Entity* entity = new Entity(glm::vec3(la.position.x+row*offset.x, la.position.y, la.position.z+col*offset.z), object, shader);
+				entity->rotation = glm::vec3(0, 0, glm::radians(90.0f));
+				resourceManager->getEntityArray()->push_back(entity);
+				
+			}
+	}
 }
 void Scane::createCamera()
 {
@@ -77,8 +128,11 @@ Scane::Scane()
 
 void Scane::createScane()
 {
+	auto scane = ScaneLoader::loadScane("GraphicModels/Scane/scane.txt");
+	
 	createShaders();
-	createObjects();
+	createObjects(scane.objectData);
+	createLayers(scane.layerData);
 	createLights();
 	createCamera();
 }

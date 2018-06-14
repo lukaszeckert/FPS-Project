@@ -8,7 +8,7 @@
 
 class Mesh {
 public:
-  glm::vec3 color;
+
   std::string name;
   std::vector<VertexData> points; //TODO we probably don't need that
   Texture *tex, *tex_spec;

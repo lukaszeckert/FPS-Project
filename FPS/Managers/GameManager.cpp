@@ -137,8 +137,8 @@ void GameManager::runGameLoop()
 	float lastFrame = glfwGetTime();
 	float dTime = 0;
 	while (_running){
-		_running = !glfwWindowShouldClose(_window);
-
+		
+		
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
 		glfwPollEvents();
 		currentFrame = glfwGetTime();

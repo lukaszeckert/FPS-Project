@@ -45,17 +45,18 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
 		auto M = translate(glm::mat4(1.0f), it->position);
-		M = glm::rotate(M, glm::radians(it->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		M = glm::rotate(M, glm::radians(it->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		M = glm::rotate(M, glm::radians(it->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+		M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+		M = glm::rotate(M, it->rotation.z, glm::vec3(0.0f, 1.0f, 0.0f));
+		M = glm::rotate(M, it->rotation.y, glm::vec3(0.0f, 0.0f, 1.0f));
 		M = glm::scale(M, it->scale);
 		for(auto mesh : it->object->meshes)
-			render(mesh, P, V, M, it->shaderInterface,camera->position);
+			render(mesh, P, V, M, it->shaderInterface,camera->position, it->color);
 		
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());
 }
-void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition)
+void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition, glm::vec3 color)
 {
 	auto lighSystem = LightSystem::getLightSystem();
 
@@ -70,7 +71,7 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 
 
 
-	shader->setVec3("objectColor", mesh->color);
+	shader->setVec3("objectColor", color);
 	shader->setVec3("viewPos", cameraPosition);
 
 	//materials
@@ -97,6 +98,7 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 			pointLightsNumber++;
 		}
 	}
+
 	shader->setInt("point_lights_number", pointLightsNumber);
 
 	auto dirLight = lighSystem->getDirectionalLight();
