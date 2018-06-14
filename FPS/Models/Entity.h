@@ -5,6 +5,8 @@
 #include "../Models/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
+#include <bullet/btBulletDynamicsCommon.h>
+
 class Entity
 {
 	//TODO add textures
@@ -20,6 +22,7 @@ public:
 	//VertexBuffer* vertexBuffer;
 	Object* object;
 	ShaderInterface* shaderInterface;
+	btRigidBody* rigidBody;	
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 rotation;

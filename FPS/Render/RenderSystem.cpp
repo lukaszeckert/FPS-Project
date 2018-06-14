@@ -40,7 +40,8 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 
 	
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
-	auto V = glm::lookAt(camera->position, camera->position+camera->dir, camera->up);
+	glm::vec3 cameraPosition = camera->getPosition(); 
+	auto V = glm::lookAt(cameraPosition, cameraPosition + camera->dir, camera->up);
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
@@ -50,7 +51,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 		M = glm::rotate(M, glm::radians(it->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 		M = glm::scale(M, it->scale);
 		for(auto mesh : it->object->meshes)
-			render(mesh, P, V, M, it->shaderInterface,camera->position);
+			render(mesh, P, V, M, it->shaderInterface,cameraPosition);
 		
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());

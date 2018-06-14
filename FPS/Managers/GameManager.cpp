@@ -4,10 +4,10 @@ GameManager *GameManager::gameManager = nullptr;
 
 
 void GameManager::windowResize(GLFWwindow* window, int width, int height) {
-	glViewport(0, 0, width, height); //Obraz ma byæ generowany w oknie o tej rozdzielczoœci
+	glViewport(0, 0, width, height); //Obraz ma byï¿½ generowany w oknie o tej rozdzielczoï¿½ci
 	auto &gm = getGameManager();
 	if (height != 0) {
-		gm.aspect = (float)width / (float)height; //Stosunek szerokoœci do wysokoœci okna
+		gm.aspect = (float)width / (float)height; //Stosunek szerokoï¿½ci do wysokoï¿½ci okna
 	}
 	else {
 		gm.aspect = 1;
@@ -55,12 +55,12 @@ GameManager& GameManager::getGameManager() {
 
 
 
-		GLFWwindow* window; //WskaŸnik na obiekt reprezentuj¹cy okno
+		GLFWwindow* window; //Wskaï¿½nik na obiekt reprezentujï¿½cy okno
 		glfwSetErrorCallback([](int, const char* str) {
 			std::cout << "GLFW error: " << str << "\n";
 		});
-		if (!glfwInit()) { //Zainicjuj bibliotekê GLFW
-			fprintf(stderr, "Nie mo¿na zainicjowaæ GLFW.\n");
+		if (!glfwInit()) { //Zainicjuj bibliotekï¿½ GLFW
+			fprintf(stderr, "Nie moï¿½na zainicjowaï¿½ GLFW.\n");
 			exit(EXIT_FAILURE);
 		}
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -68,22 +68,22 @@ GameManager& GameManager::getGameManager() {
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-		window = glfwCreateWindow(1280, 720, "LearnOpenGL", NULL, NULL); //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
+		window = glfwCreateWindow(1280, 720, "LearnOpenGL", NULL, NULL); //Utwï¿½rz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
-		if (!window) //Je¿eli okna nie uda³o siê utworzyæ, to zamknij program
+		if (!window) //Jeï¿½eli okna nie udaï¿½o siï¿½ utworzyï¿½, to zamknij program
 		{
-			fprintf(stderr, "Nie mo¿na utworzyæ okna.\n");
+			fprintf(stderr, "Nie moï¿½na utworzyï¿½ okna.\n");
 			glfwTerminate();
 			exit(EXIT_FAILURE);
 		}
 
-		glfwMakeContextCurrent(window); //Od tego momentu kontekst okna staje siê aktywny i polecenia OpenGL bêd¹ dotyczyæ w³aœnie jego.
-		glfwSwapInterval(1); //Czekaj na 1 powrót plamki przed pokazaniem ukrytego bufora
+		glfwMakeContextCurrent(window); //Od tego momentu kontekst okna staje siï¿½ aktywny i polecenia OpenGL bï¿½dï¿½ dotyczyï¿½ wï¿½aï¿½nie jego.
+		glfwSwapInterval(1); //Czekaj na 1 powrï¿½t plamki przed pokazaniem ukrytego bufora
 		glewExperimental = GL_TRUE; //Ubuntu
 
 
-		if (glewInit() != GLEW_OK) { //Zainicjuj bibliotekê GLEW
-			fprintf(stderr, "Nie mo¿na zainicjowaæ GLEW.\n");
+		if (glewInit() != GLEW_OK) { //Zainicjuj bibliotekï¿½ GLEW
+			fprintf(stderr, "Nie moï¿½na zainicjowaï¿½ GLEW.\n");
 			exit(EXIT_FAILURE);
 		}
 
@@ -137,12 +137,15 @@ void GameManager::runGameLoop()
 	float lastFrame = glfwGetTime();
 	float dTime = 0;
 	while (_running){
+		currentFrame = glfwGetTime();
+		dTime = currentFrame - lastFrame;
+
+		resourceManager->dynamicsWorld->stepSimulation(dTime, 10);
+		std::cout <<  resourceManager->getCamera()->cameraRigidBody->getWorldTransform().getOrigin().x() << std::endl;
 		_running = !glfwWindowShouldClose(_window);
 
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
 		glfwPollEvents();
-		currentFrame = glfwGetTime();
-		dTime = currentFrame - lastFrame;
 		processInput(_window, dTime);
 		lastFrame = currentFrame;
 	}

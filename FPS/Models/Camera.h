@@ -1,5 +1,6 @@
 #pragma once
 
+#include <bullet/btBulletDynamicsCommon.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -16,7 +17,7 @@ const double SPEED = 2.5f;
 const double SENSITIVITY = 0.1f;
 const double ZOOM = 45.0f;
 struct Camera {
-
+	btRigidBody* cameraRigidBody;
 	glm::vec3 position;
 	glm::vec3 dir;
 	glm::vec3 up;
@@ -33,7 +34,7 @@ struct Camera {
 	glm::mat4 getViewMatrix();
 	void processMovement(Camera_Movement direction, float deltaTime);
 	void processMouse(double xoffset, double toffset, bool constraintPitch = true);
-
+	glm::vec3 getPosition();
 	void updateCameraVectors();
 
 

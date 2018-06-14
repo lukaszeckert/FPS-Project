@@ -1,7 +1,17 @@
 #include "Camera.h"
+#include "../Managers/ResourceManager.h"
 
 Camera::Camera(glm::vec3 position,glm::vec3 dir, glm::vec3 up, float yaw, float pitch):dir(dir),position(position),worldUp(up),yaw(yaw),pitch(pitch),movementSpeed(SPEED),mouseSensitivity(SENSITIVITY)
 {
+	btCollisionShape* cameraShape = new btSphereShape(1);
+	btDefaultMotionState* cameraMotionState =
+                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+	btScalar mass = 1;
+	btVector3 cameraInertia(0, 0, 0);
+	cameraShape->calculateLocalInertia(mass, cameraInertia);
+	btRigidBody::btRigidBodyConstructionInfo cameraRigidBodyCI(mass, cameraMotionState, cameraShape, cameraInertia);
+	cameraRigidBody = new btRigidBody(cameraRigidBodyCI);
+	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(cameraRigidBody);
 	updateCameraVectors();
 }
 
@@ -11,17 +21,19 @@ glm::mat4 Camera::getViewMatrix()
 }
 
 void Camera::processMovement(Camera_Movement direction, float deltaTime)
-{
-	
+{	
+	auto btDir = btVector3(dir.x, dir.y, dir.z);
+	auto btRight = btVector3(right.x, right.y, right.z);
 	float velocity = movementSpeed * deltaTime;
 	if (direction == FORWARD)
-		position += dir * velocity;
+		cameraRigidBody->translate(btDir * velocity);
 	if (direction == BACKWARD)
-		position -= dir * velocity;
+		cameraRigidBody->translate(btDir * velocity * (-1));	
 	if (direction == LEFT)
-		position -= right * velocity;
+		cameraRigidBody->translate(btRight * velocity * (-1));
 	if (direction == RIGHT)
-		position += right * velocity;
+		cameraRigidBody->translate(btRight * velocity);
+
 	updateCameraVectors();
 }
 
@@ -58,4 +70,9 @@ void Camera::updateCameraVectors()
 	// Also re-calculate the Right and Up vector
 	right = glm::normalize(glm::cross(dir, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
 	up = glm::normalize(glm::cross(right, dir));
+}
+
+glm::vec3 Camera::getPosition() {
+	btVector3 &vec = cameraRigidBody->getWorldTransform().getOrigin();
+	return glm::vec3(vec.x(), vec.y(), vec.z());
 }

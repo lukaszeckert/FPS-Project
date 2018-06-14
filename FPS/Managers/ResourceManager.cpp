@@ -5,6 +5,12 @@
 ResourceManager *ResourceManager::resourceManager = nullptr;
 ResourceManager::ResourceManager()
 {
+	btBroadphaseInterface* broadphase = new btDbvtBroadphase();;
+	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+
 	shaderArray = new std::vector<ShaderInterface*>();
 	//vertexBufferArray = new std::vector<VertexBuffer*>();
 	EntityArray = new std::vector<Entity*>();

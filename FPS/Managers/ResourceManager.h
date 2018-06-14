@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <bullet/btBulletDynamicsCommon.h>
 #include "../Interfaces/ShaderInterface.h"
 #include "../Interfaces/ObjectLoaderInterface.h"
 #include "../Models/VertexBuffer.h"
@@ -28,6 +29,8 @@ public:
 	std::vector<Texture *>* getTextureArray();
 	std::vector<Object *>* getObjectArray();
 	static ResourceManager& getResourceManager();
+	btDiscreteDynamicsWorld* dynamicsWorld;
+
 	static void destroyResourceManager();
 	Camera* getCamera();
 	void setCamera(Camera* camera);
