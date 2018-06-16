@@ -140,8 +140,7 @@ void GameManager::runGameLoop()
 		currentFrame = glfwGetTime();
 		dTime = currentFrame - lastFrame;
 
-		resourceManager->dynamicsWorld->stepSimulation(dTime, 10);
-		std::cout <<  resourceManager->getCamera()->cameraRigidBody->getWorldTransform().getOrigin().x() << std::endl;
+		resourceManager->dynamicsWorld->stepSimulation(1.0f/60.0f, 10);
 		_running = !glfwWindowShouldClose(_window);
 
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);

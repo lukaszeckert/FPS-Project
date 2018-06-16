@@ -1,5 +1,25 @@
 #include "ResourceManager.h"
 
+void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
+	int numManifolds = world->getDispatcher()->getNumManifolds();
+	for (int i = 0; i < numManifolds; i++)
+	{
+			btPersistentManifold* contactManifold =  world->getDispatcher()->getManifoldByIndexInternal(i);
+			const btCollisionObject* obA = contactManifold->getBody0();
+			const btCollisionObject* obB = contactManifold->getBody1();
+
+			int numContacts = contactManifold->getNumContacts();
+			for (int j = 0; j < numContacts; j++)
+			{
+					btManifoldPoint& pt = contactManifold->getContactPoint(j);
+					if (pt.getDistance() < 0.f && obA != ResourceManager::getResourceManager().groundRigidBody
+						&& obB != ResourceManager::getResourceManager().groundRigidBody)
+					{
+							std::cout << "Contact" << std::endl;
+					}
+			}
+	}
+}
 
 
 ResourceManager *ResourceManager::resourceManager = nullptr;
@@ -10,6 +30,16 @@ ResourceManager::ResourceManager()
 	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
+	dynamicsWorld->setGravity(btVector3(0, -10, 0));
+	dynamicsWorld->setInternalTickCallback(tickCallback);
+
+	btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
+	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
+	btRigidBody::btRigidBodyConstructionInfo
+					groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
+	groundRigidBody = new btRigidBody(groundRigidBodyCI);
+	dynamicsWorld->addRigidBody(groundRigidBody);
+
 
 	shaderArray = new std::vector<ShaderInterface*>();
 	//vertexBufferArray = new std::vector<VertexBuffer*>();

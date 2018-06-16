@@ -23,6 +23,7 @@ class ResourceManager
 	ResourceManager();
 	~ResourceManager();
 public:
+	btRigidBody* groundRigidBody; // needed for testing only
 	std::vector<ShaderInterface *>* getShaderArray();
 //	std::vector<VertexBuffer *>* getBufferArray();
 	std::vector<Entity*>* getEntityArray();

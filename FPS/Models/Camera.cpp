@@ -3,15 +3,16 @@
 
 Camera::Camera(glm::vec3 position,glm::vec3 dir, glm::vec3 up, float yaw, float pitch):dir(dir),position(position),worldUp(up),yaw(yaw),pitch(pitch),movementSpeed(SPEED),mouseSensitivity(SENSITIVITY)
 {
-	btCollisionShape* cameraShape = new btSphereShape(1);
+	btCollisionShape* cameraShape = new btBoxShape(btVector3(1.25, 0.5, 1.25));
 	btDefaultMotionState* cameraMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0, 0)));
+                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
 	btScalar mass = 1;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
 	btRigidBody::btRigidBodyConstructionInfo cameraRigidBodyCI(mass, cameraMotionState, cameraShape, cameraInertia);
 	cameraRigidBody = new btRigidBody(cameraRigidBodyCI);
 	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(cameraRigidBody);
+	
 	updateCameraVectors();
 }
 
@@ -25,6 +26,8 @@ void Camera::processMovement(Camera_Movement direction, float deltaTime)
 	auto btDir = btVector3(dir.x, dir.y, dir.z);
 	auto btRight = btVector3(right.x, right.y, right.z);
 	float velocity = movementSpeed * deltaTime;
+
+	cameraRigidBody->activate(true);
 	if (direction == FORWARD)
 		cameraRigidBody->translate(btDir * velocity);
 	if (direction == BACKWARD)

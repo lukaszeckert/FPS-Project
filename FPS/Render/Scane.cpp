@@ -28,12 +28,12 @@ void Scane::createObjects()
 	for (int i = 0; i < 4; ++i)
 	{
 		Entity* entity = new Entity(glm::vec3(0, 0, (i - 2) * 5), object, shader, glm::vec3(0.0, 1.0, 0.5));
-		entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
+		// entity->scale = glm::vec3(1.0f / (i + 1), 1.0f / (i + 1), 1.0f / (i + 1));
 		resourceManager->getEntityArray()->push_back(entity);
 
 	}
 	Entity* entity = new Entity(glm::vec3(4, 0, 10), object, shader_color);
-	entity->scale = glm::vec3(0.1, 0.1, 0.1);
+	// entity->scale = glm::vec3(0.1, 0.1, 0.1);
 	resourceManager->getEntityArray()->push_back(entity);
 
 /*		auto vertexBuffer = new VertexBuffer(it->points.data(), sizeof(VertexData)*it->points.size(), GL_TRIANGLES, it->points.size(), sizeof(VertexData));
