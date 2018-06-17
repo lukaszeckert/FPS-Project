@@ -40,6 +40,17 @@ Data ScaneLoader::loadScane(std::string filename)
 			iss >> data.filename;
 			res.layerData.push_back(data);
 		}
+		if (c == 'e') {
+			EntityData data;
+			iss >> data.id;
+			iss >> data.position.x >> data.position.y >> data.position.z;
+			iss >> data.scale.x >> data.scale.y >> data.scale.z;
+			iss >> data.rotation.x >> data.rotation.y >> data.rotation.z;
+			iss >> data.obj_id;
+			//std::cout << "e:" << data.position.x <<  " " <<  data.position.y <<" " << data.position.z << "\n";
+			res.entityData.push_back(data);
+
+		}
 			
 		
 		

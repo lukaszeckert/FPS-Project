@@ -14,3 +14,5 @@ Release/
 glad-master/
 FPS/main_file
 FPS/.vscode
+FPS/Dependencies/bullet/
+FPS/Dependencies/bullet-2.82-r2704/

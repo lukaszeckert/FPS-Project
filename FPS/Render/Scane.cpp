@@ -14,13 +14,7 @@ void Scane::createLights()
 {
 	auto lightSystem = LightSystem::getLightSystem();
 	auto light = lightSystem->createPointLighs(glm::vec3(-4, 2, 5));
-	light->active = true;
-	light->linear = 0.007;
-	light->quadratic = 0.0002;
-	light->diffuse = glm::vec3(1, 1, 1);
-	light->ambient = glm::vec3(1, 1, 1);
-	light->specular = glm::vec3(1, 1, 1);
-	lightSystem->addPointLight(light);
+
 
 	light = lightSystem->createPointLighs(glm::vec3(4, 2, 5));
 	light->active = true;
@@ -91,8 +85,11 @@ void Scane::createObjects(std::vector<ObjectData> objects)
 			*/
 	
 }
-void Scane::createLayers(std::vector<LayerData> layers)
+void Scane::createLayers(std::vector<LayerData> layers, std::vector<EntityData> entities)
 {
+	std::map<int, EntityData> entity_map;
+	for (auto it : entities)
+		entity_map[it.id] = it;
 	for (auto la : layers)
 	{
 		
@@ -102,10 +99,21 @@ void Scane::createLayers(std::vector<LayerData> layers)
 		for(int row=0;row<layer.objects.size(); ++row)
 			for (int col=0;col<layer.objects[row].size();++col)
 			{
-				auto object = object_map[layer.objects[row][col]];
-				Entity* entity = new Entity(glm::vec3(la.position.x+row*offset.x, la.position.y, la.position.z+col*offset.z), object, shader);
-				entity->rotation = glm::vec3(0, 0, glm::radians(90.0f));
-				resourceManager->getEntityArray()->push_back(entity);
+				
+				if (entity_map.find(layer.objects[row][col]) != entity_map.end()) {
+					auto entityData = entity_map[layer.objects[row][col]];
+					auto object = object_map[entityData.obj_id];
+					glm::vec3 position = glm::vec3(la.position.x + row*offset.x, la.position.y, la.position.z + col*offset.z)+entityData.position;
+					std::cout <<layer.objects[row][col]  <<" " << position.x << " " << position.y << " " << position.y << " " << entityData.position.x << " " << entityData.position.y << " " << entityData.position.z << "\n";
+					glm::vec3 scale = entityData.scale;
+					glm::vec3 rotation = entityData.rotation;
+					rotation = glm::vec3(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z));
+					Entity* entity = new Entity(position, object, shader);
+					entity->scale = scale;
+					
+					entity->rotation = rotation;
+					resourceManager->getEntityArray()->push_back(entity);
+				}
 				
 			}
 	}
@@ -113,7 +121,7 @@ void Scane::createLayers(std::vector<LayerData> layers)
 void Scane::createCamera()
 {
 	auto camera = new Camera();
-	camera->position.x = -3;
+	camera->position = glm::vec3(3, 3, 3);
 	resourceManager->setCamera(camera);
 
 
@@ -128,11 +136,11 @@ Scane::Scane()
 
 void Scane::createScane()
 {
-	auto scane = ScaneLoader::loadScane("GraphicModels/Scane/scane.txt");
+	auto scane = ScaneLoader::loadScane("GraphicModels/Scane/big_scane.txt");
 	
 	createShaders();
 	createObjects(scane.objectData);
-	createLayers(scane.layerData);
+	createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
 }

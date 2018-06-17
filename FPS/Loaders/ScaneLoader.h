@@ -1,5 +1,5 @@
 #pragma once
-#include "Dependencies/glm/glm.hpp"
+#include <glm/glm.hpp>
 #include <string>
 #include <map>
 #include <vector>
@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+
 
 enum SCANE_OBJECT
 {
@@ -29,8 +30,16 @@ struct LayerData {
 	std::string filename;
 
 };
+struct EntityData {
+	int id;
+	int obj_id;
+	glm::vec3 position;
+	glm::vec3 scale;
+	glm::vec3 rotation;
+};
 struct Data{
 	std::vector<ObjectData> objectData;
+	std::vector<EntityData> entityData;
 	std::vector<LayerData> layerData;
 
 };

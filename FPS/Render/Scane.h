@@ -1,8 +1,9 @@
 #pragma once
 #include "../Managers/ResourceManager.h"
-#include "../ScaneLoader.h"
+#include "../Loaders/ScaneLoader.h"
 #include <map>
 #include <vector>
+
 class Scane
 {
 	ShaderInterface* shader;
@@ -12,7 +13,7 @@ class Scane
 	void createShaders();
 	void createLights();
 	void createObjects(std::vector<ObjectData> objects);
-	void createLayers(std::vector<LayerData> layers);
+	void createLayers(std::vector<LayerData> layers, std::vector<EntityData> entities);
 	void createCamera();
 
 public:
