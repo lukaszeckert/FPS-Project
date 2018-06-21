@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #define _SCL_SECURE_NO_WARNINGS
 #include "ScaneLoader.h"
 
@@ -61,7 +62,13 @@ Data ScaneLoader::loadScane(std::string filename)
 Layer ScaneLoader::loadLayer(std::string filename)
 {
 	Layer res;
-	std::ifstream infile(filename);
+	std::ifstream infile;
+	try {
+		infile.open(filename);
+	}
+	catch (std::ios_base::failure& e) {
+		std::cerr << e.what() << '\n';
+	}
 	std::string line;
 	char c;
 	int n,m;

@@ -95,7 +95,8 @@ void Scane::createLayers(std::vector<LayerData> layers, std::vector<EntityData> 
 		
 		auto layer = ScaneLoader::loadLayer(la.filename);
 		glm::vec3 offset = layer.offset;
-
+		std::cout << la.id << " " << la.position.x << " " << la.position.y << " " << la.position.z << "\n";
+		std::cout << la.position.x + offset.x*layer.objects.size() <<" " << la.position.z + offset.z*layer.objects[0].size() << "\n";
 		for(int row=0;row<layer.objects.size(); ++row)
 			for (int col=0;col<layer.objects[row].size();++col)
 			{
@@ -104,13 +105,11 @@ void Scane::createLayers(std::vector<LayerData> layers, std::vector<EntityData> 
 					auto entityData = entity_map[layer.objects[row][col]];
 					auto object = object_map[entityData.obj_id];
 					glm::vec3 position = glm::vec3(la.position.x + row*offset.x, la.position.y, la.position.z + col*offset.z)+entityData.position;
-					std::cout <<layer.objects[row][col]  <<" " << position.x << " " << position.y << " " << position.y << " " << entityData.position.x << " " << entityData.position.y << " " << entityData.position.z << "\n";
 					glm::vec3 scale = entityData.scale;
 					glm::vec3 rotation = entityData.rotation;
 					rotation = glm::vec3(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z));
 					Entity* entity = new Entity(position, object, shader);
 					entity->scale = scale;
-					
 					entity->rotation = rotation;
 					resourceManager->getEntityArray()->push_back(entity);
 				}

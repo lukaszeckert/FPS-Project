@@ -2,13 +2,49 @@
 # l id position.x position.y position.z layer.txt
 # e id position.x position.y position.z scale.x scale.y scale.z rotation.x rotation.y rotation.z obj_id
 o 1 0 0 0 GraphicModels/floor.obj
-o 2 0 0 0 GraphicModels/SciFi_Wall2.obj
+o 2 0 0 0 GraphicModels/SciFi_Wall3.obj
 o 3 0 0 0 GraphicModels/corner2.obj
+o 4 0 0 0 GraphicModels/ceiling.obj
+o 5 0 0 0 GraphicModels/cube.obj
+o 6 0 0 0 GraphicModels/corner3.obj
+#
 e 1 0 0 0 1 1 1 0 0 0 1
-e 2 0 1 0 1 1 1 0 0 0 2
-e 3 0 1 0 1 1 1 0 0 180 2
-e 4 0 1 0 1 1 1 0 0 270 2
-e 5 0 1 0 1 1 1 0 0 90 2
-e 6 0 1 0 1 1 1 0 0 0 3
-l 1 0 0 0 GraphicModels/Scane/layer_big_floor.txt
-l 2 0 0 0 GraphicModels/Scane/layer_big_floor_walls.txt
+e 2 0 0 0 1 1 1 0 0 0 4
+#
+e 10 0 2 0 1 2 1 0 0 0 2
+e 11 0 2 0 1 2 1 0 90 0 2
+#corners
+e 20 0 2 0 1 2 1 0 0 0 6
+e 21 0 2 0 1 2 1 0 90 0 6
+e 22 0 2 0 1 2 1 0 180 0 6
+e 23 0 2 0 1 2 1 0 270 0 6
+#
+#l 1 0 0 0 GraphicModels/Scane/room1_floor.txt
+#l 2 0 0 0 GraphicModels/Scane/room1_walls.txt
+#l -3 0 0 16 GraphicModels/Scane/corridor_horizontal_floor.txt
+#l -3 0 0 16 GraphicModels/Scane/corridor_horizontal_SE_walls.txt
+#room1
+l 10 10 0 4 GraphicModels/Scane/room1_floor.txt
+l 11 10 0 4 GraphicModels/Scane/room1_walls.txt
+#room2
+l 2 60 0 4 GraphicModels/Scane/room2_floor.txt
+l 2 60 0 4 GraphicModels/Scane/room2_walls.txt
+#room3
+l 3 48 0 44 GraphicModels/Scane/room3_floor.txt
+l 3 48 0 44 GraphicModels/Scane/room3_walls.txt
+#room4
+l 4 4 0 40 GraphicModels/Scane/room4_floor.txt
+l 4 4 0 40 GraphicModels/Scane/room4_walls.txt
+#room5
+l 5 10 0 84 GraphicModels/Scane/room5_floor.txt
+l 5 10 0 84 GraphicModels/Scane/room5_walls.txt
+#1->2
+l 12 26 0 6 GraphicModels/Scane/corridor_vertical_SE_walls.txt
+l 12 40 0 12 GraphicModels/Scane/corridor_vertical_WN_walls.txt
+#1->4
+l 14 12 0 20 GraphicModels/Scane/corridor_horizontal_WE_walls.txt
+#2->3
+l 23 60 0 24 GraphicModels/Scane/corridor_horizontal_WE_walls.txt 
+#3->5 
+l 351 70 0 72 GraphicModels/Scane/corridor_horizontal_WS_walls.txt 
+l 352 50 0 86 GraphicModels/Scane/corridor_vertical_SN_walls.txt

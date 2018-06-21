@@ -35,7 +35,15 @@ void RenderSystem::destroyRenderSystem()
 }
 void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float aspect)
 {
-	
+	auto spotLight = LightSystem::getLightSystem()->getSpotLight();
+	spotLight->position = camera->position;
+	spotLight->direction = camera->dir;
+	spotLight->cutOff = glm::cos(glm::radians(12.5f));
+	spotLight->outerCutOff = glm::cos(glm::radians(17.0f));
+	spotLight->ambient = glm::vec3(0, 0, 0);
+	spotLight->linear = 0.09;
+	spotLight->quadratic = 0.032;
+	spotLight->constant = 1;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
@@ -44,15 +52,16 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
-		auto M = translate(glm::mat4(1.0f), it->position);
+		if (glm::distance(it->position, camera->position) >0) {
+			auto M = translate(glm::mat4(1.0f), it->position);
 
-		M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		M = glm::rotate(M, it->rotation.z, glm::vec3(0.0f, 1.0f, 0.0f));
-		M = glm::rotate(M, it->rotation.y, glm::vec3(0.0f, 0.0f, 1.0f));
-		M = glm::scale(M, it->scale);
-		for(auto mesh : it->object->meshes)
-			render(mesh, P, V, M, it->shaderInterface,camera->position, it->color);
-		
+			M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+			M = glm::rotate(M, it->rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+			M = glm::rotate(M, it->rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+			M = glm::scale(M, it->scale);
+			for (auto mesh : it->object->meshes)
+				render(mesh, P, V, M, it->shaderInterface, camera->position, it->color);
+		}
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());
 }
@@ -84,7 +93,7 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 	//light
 	int pointLightsNumber = 0;
 	for (auto it : *lighSystem->getPointLights()) {
-		if (it->active == true)
+		if (it->active == true && false)
 		{
 			
 			shader->setVec3("pointLights["+std::to_string(pointLightsNumber)+"].position", it->position);
