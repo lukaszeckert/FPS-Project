@@ -52,7 +52,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
-		if (glm::distance(it->position, camera->position) >0) {
+		if (glm::distance(it->position, camera->position) < 80) {
 			auto M = translate(glm::mat4(1.0f), it->position);
 
 			M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
