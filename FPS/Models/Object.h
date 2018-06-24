@@ -10,9 +10,8 @@
 class Object {
   public:
     std::vector<Mesh*> meshes;
-    btConvexHullShape* shape;
+    btCompoundShape *shape;
     Object();
     ~Object();
     void addMesh(Mesh* mesh);
-    void optimize();
 };

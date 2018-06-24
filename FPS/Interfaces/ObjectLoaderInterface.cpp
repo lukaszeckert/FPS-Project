@@ -90,6 +90,5 @@ Object* ObjectLoaderInterface::loadObjFile(const char * filename, std::vector<Te
 		// Close File
 		file.close();
 	}
-	object->optimize();
 	return object;
 }
