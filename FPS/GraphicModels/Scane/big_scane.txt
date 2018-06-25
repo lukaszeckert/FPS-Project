@@ -1,12 +1,18 @@
 # o id position.x position.y position.z obj.obj
 # l id position.x position.y position.z layer.txt
 # e id position.x position.y position.z scale.x scale.y scale.z rotation.x rotation.y rotation.z obj_id
+# b - bind objects works only with light.
+# b offset.x offset.y offset.z 
+# const id:
+# 1001 point light white
+#  
 o 1 0 0 0 GraphicModels/floor.obj
 o 2 0 0 0 GraphicModels/SciFi_Wall3.obj
 o 3 0 0 0 GraphicModels/corner2.obj
 o 4 0 0 0 GraphicModels/ceiling.obj
 o 5 0 0 0 GraphicModels/cube.obj
 o 6 0 0 0 GraphicModels/corner3.obj
+o 7 0 0 0 GraphicModels/old_desk.obj
 #
 e 1 0 0 0 1 1 1 0 0 0 1
 e 4 0 0 0 1 1 1 0 0 0 4
@@ -18,7 +24,11 @@ e 20 0 2 0 1 2 1 0 0 0 6
 e 21 0 2 0 1 2 1 0 90 0 6
 e 22 0 2 0 1 2 1 0 180 0 6
 e 23 0 2 0 1 2 1 0 270 0 6
-#
+#items
+e 31 0 0 0 1 1 1 0 0 0 7
+e 32 0 0 0 1 1 1 0 0 0 5
+
+
 #l 1 0 0 0 GraphicModels/Scane/room1_floor.txt
 #l 2 0 0 0 GraphicModels/Scane/room1_walls.txt
 #l -3 0 0 16 GraphicModels/Scane/corridor_horizontal_floor.txt
@@ -27,6 +37,7 @@ e 23 0 2 0 1 2 1 0 270 0 6
 l 10 10 0 4 GraphicModels/Scane/room1_floor.txt
 l 11 10 0 4 GraphicModels/Scane/room1_walls.txt
 l 11 10 4 4 GraphicModels/Scane/room1_celling.txt
+l 11 10 0 4 GraphicModels/Scane/room1_items.txt
 #room2
 l 2 60 0 4 GraphicModels/Scane/room2_floor.txt
 l 2 60 0 4 GraphicModels/Scane/room2_walls.txt
