@@ -14,7 +14,7 @@ void main()
 {
     gl_Position = P*V*M*aPostionVertex;
 	FragPos = vec4(M*aPostionVertex);
-	Normal = aNormal;
+	Normal = M*aNormal;
 	TexCoords = aTexCoords;
 	//gl_Position = P*V*M*vec4(aTexCoords,-3,1);
 }

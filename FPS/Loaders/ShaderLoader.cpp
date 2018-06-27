@@ -31,7 +31,7 @@ GLuint ShaderLoader::compileShader(GLenum shader, const char *source)
 ShaderLoader::ShaderLoader(const char* sourceVS, const char *sourceFS)
 {
 	_programHandle = glCreateProgram();
-	std::cout << _programHandle << "\n";
+
 	GLuint vertexShaderHandle = compileShader(GL_VERTEX_SHADER, sourceVS);
 	GLuint fragmentShaderHandle = compileShader(GL_FRAGMENT_SHADER, sourceFS);
 	

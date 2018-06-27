@@ -1,0 +1,14 @@
+# Blender MTL File: 'knight_statue.blend'
+# Material Count: 1
+
+newmtl armor
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.410930 0.410930 0.410930
+Ks 0.406061 0.406061 0.406061
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump -bm -0.054945 -s 2.000000 2.000000 3.000000 arm_showroom_ddn.png
+map_Kd -s 2.000000 2.000000 2.000000 C:\\Pictures\\dawn\\granite.jpg

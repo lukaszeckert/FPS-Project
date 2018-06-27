@@ -39,13 +39,13 @@ void GameManager::processInput(GLFWwindow * window, float dTime)
 {
 	auto camera = resourceManager->getCamera();
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera->processMovement(FORWARD,dTime);
+		camera->processMovement(FORWARD,dTime*4);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera->processMovement(BACKWARD, dTime);
+		camera->processMovement(BACKWARD, dTime*4);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera->processMovement(LEFT, dTime);
+		camera->processMovement(LEFT, dTime*4);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera->processMovement(RIGHT, dTime);
+		camera->processMovement(RIGHT, dTime*4);
 
 }
 GameManager& GameManager::getGameManager() {

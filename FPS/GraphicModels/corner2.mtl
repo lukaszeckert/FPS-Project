@@ -1,0 +1,58 @@
+# Blender MTL File: 'None'
+# Material Count: 4
+
+newmtl Material.001
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Panel_0_textures\Panel_Diffuse_1.png
+map_Bump Panel_0_textures\\Panel_0_normals.jpg
+map_Ke C:\\Panel_0_textures\\Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures\\Panel_Specular.png
+
+newmtl Material.002
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Panel_0_textures\Panel_Diffuse_1.png
+map_Bump Panel_0_textures\\Panel_0_normals.jpg
+map_Ke C:\\Panel_0_textures\\Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures\\Panel_Specular.png
+
+newmtl Material.003
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Panel_0_textures\Panel_Diffuse_1.png
+map_Bump Panel_0_textures\\Panel_0_normals.jpg
+map_Ke Panel_0_textures\\Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures\\Panel_Specular.png
+
+newmtl Material.004
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Panel_0_textures\Panel_Diffuse_1.png
+map_Bump Panel_0_textures\\Panel_0_normals.jpg
+map_Ke C:\\Panel_0_textures\\Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures\\Panel_Specular.png

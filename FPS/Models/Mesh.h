@@ -9,7 +9,7 @@
 
 class Mesh {
 public:
-  glm::vec3 color;
+
   std::string name;
   btConvexHullShape* shape;  
   Texture *tex, *tex_spec;
