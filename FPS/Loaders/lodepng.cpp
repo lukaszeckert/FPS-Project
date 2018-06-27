@@ -32,6 +32,7 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
 #ifdef LODEPNG_COMPILE_CPP
 #include <fstream>
@@ -5945,6 +5946,7 @@ unsigned load_file(std::vector<unsigned char>& buffer, const std::string& filena
   std::ifstream file(filename.c_str(), std::ios::in|std::ios::binary|std::ios::ate);
   if(!file) return 78;
 
+  std::cerr << filename << std::endl;
   /*get filesize*/
   std::streamsize size = 0;
   if(file.seekg(0, std::ios::end).good()) size = file.tellg();

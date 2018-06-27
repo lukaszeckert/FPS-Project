@@ -55,7 +55,7 @@ Object* ObjectLoaderInterface::loadObjFile(const char * filename, std::vector<Te
 			file << "Dissolve: " << curMesh.MeshMaterial.d << "\n";
 			file << "Illumination: " << curMesh.MeshMaterial.illum << "\n";
 			file << "Ambient Texture Map: " << curMesh.MeshMaterial.map_Ka << "\n";
-			file << "Diffuse Texture Map: " << curMesh.MeshMaterial.map_Kd << "\n";
+			file << "Diffuse Texture Map: " << curMesh.MeshMaterial.map_Ka << "\n";
 			file << "Specular Texture Map: " << curMesh.MeshMaterial.map_Ks << "\n";
 			file << "Alpha Texture Map: " << curMesh.MeshMaterial.map_d << "\n";
 			file << "Bump Map: " << curMesh.MeshMaterial.map_bump << "\n";

@@ -173,7 +173,7 @@ namespace objl
 		// Ambient Texture Map
 		std::string map_Ka;
 		// Diffuse Texture Map
-		std::string map_Kd;
+		std::string map_Ka;
 		// Specular Texture Map
 		std::string map_Ks;
 		// Specular Hightlight Map
@@ -1092,9 +1092,9 @@ namespace objl
 					tempMaterial.map_Ka = algorithm::tail(curline);
 				}
 				// Diffuse Texture Map
-				if (algorithm::firstToken(curline) == "map_Kd")
+				if (algorithm::firstToken(curline) == "map_Ka")
 				{
-					tempMaterial.map_Kd = algorithm::tail(curline);
+					tempMaterial.map_Ka = algorithm::tail(curline);
 				}
 				// Specular Texture Map
 				if (algorithm::firstToken(curline) == "map_Ks")

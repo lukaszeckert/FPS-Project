@@ -11,4 +11,4 @@ Ni 1.000000
 d 1.000000
 illum 1
 map_Ks old_table_bump.png
-map_Kd old_table_diffuse.png
+map_Ka old_table_diffuse.png
