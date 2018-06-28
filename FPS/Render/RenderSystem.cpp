@@ -64,13 +64,17 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 		auto pos = it->rigidBody->getWorldTransform().getOrigin();
 		if (glm::distance(glm::vec3(pos.x(),pos.y(),pos.z()), camera->getPosition()) <40 ) {
 			auto M = translate(glm::mat4(1.0f), glm::vec3(pos.x(),pos.y(),pos.z()));
-
 			M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 			M = glm::rotate(M, it->rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 			M = glm::rotate(M, it->rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 			M = glm::scale(M, it->scale);
+			btTransform trans2;
+			it->rigidBody->getMotionState()->getWorldTransform(trans2);
+			float m[16];
+			trans2.getOpenGLMatrix(m);
+			
 			for (auto mesh : it->object->meshes)
-				render(mesh, P, V, M, it->shaderInterface, camera->position, it->color);
+				render(mesh, P, V, glm::make_mat4(m) , it->shaderInterface, camera->position, it->color);
 		}
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());

@@ -99,13 +99,13 @@ PointLight * LightSystem::bind(Entity * entity)
 	if (unbindedLights->size() == 0)
 	{
 		res = createPointLighs(entity->position);
-		res->bind(entity);
 	}
 	else
 	{
 		res = unbindedLights->back();
 		unbindedLights->pop_back();
 	}
+	res->bind(entity);
 	pointLights->push_back(res);
 	return res;
 }

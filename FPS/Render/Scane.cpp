@@ -115,9 +115,9 @@ void Scane::createLayers(std::vector<LayerData> layers, std::vector<EntityData> 
 					glm::vec3 scale = entityData.scale;
 					glm::vec3 rotation = entityData.rotation;
 					rotation = glm::vec3(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z));
-					Entity* entity = new Entity(position, object, shader);
+					Entity* entity = new Entity(position, object, shader, EntityType::OTHER, rotation);
 					entity->scale = scale;
-					entity->rotation = rotation;
+				//	entity->rotation = rotation;
 					resourceManager->getEntityArray()->push_back(entity);
 				}
 				

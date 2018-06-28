@@ -67,7 +67,7 @@ void ProjectileManager::destoryProjectile(Projectile * projectile)
 void ProjectileManager::update()
 {
 	for (auto it : *projectiles) {
-		glm::vec3 velocity = glm::normalize(it->direction)*it->speed;
+		glm::vec3 velocity = glm::normalize(it->direction)*it->speed/4.0f;
 		it->entity->rigidBody->setLinearVelocity(btVector3(velocity.x, velocity.y, velocity.z));
 	}
 }
