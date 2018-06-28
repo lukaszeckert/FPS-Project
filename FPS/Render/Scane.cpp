@@ -104,8 +104,6 @@ void Scane::createLayers(std::vector<LayerData> layers, std::vector<EntityData> 
 		
 		auto layer = ScaneLoader::loadLayer(la.filename);
 		glm::vec3 offset = layer.offset;
-		std::cout << la.id << " " << la.position.x << " " << la.position.y << " " << la.position.z << "\n";
-		std::cout << la.position.x + offset.x*layer.objects.size() <<" " << la.position.z + offset.z*layer.objects[0].size() << "\n";
 		for(int row=0;row<layer.objects.size(); ++row)
 			for (int col=0;col<layer.objects[row].size();++col)
 			{
