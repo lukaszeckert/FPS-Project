@@ -4,7 +4,7 @@ Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity),
 {
 	pointLight->active = true;
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
-	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.1, 0.1, 0.1));
+	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.3, 0.1, 0.3));
 	btDefaultMotionState* cameraMotionState =
 		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z)));
 	btScalar mass = 0.00001;

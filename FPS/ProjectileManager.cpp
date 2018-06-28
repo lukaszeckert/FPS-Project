@@ -33,7 +33,7 @@ Projectile * ProjectileManager::createProjectile(glm::vec3 position, glm::vec3 d
 		shader = (&ResourceManager::getResourceManager())->getProjectileShader();
 	}
 	
-	auto entity = new Entity(position+direction, object, shader);
+	auto entity = new Entity(position+normalize(direction)*2.0f, object, shader);
 	entity->color = color;
 	
 	
@@ -67,7 +67,7 @@ void ProjectileManager::destoryProjectile(Projectile * projectile)
 void ProjectileManager::update()
 {
 	for (auto it : *projectiles) {
-		glm::vec3 velocity = glm::normalize(it->direction)*it->speed/4.0f;
+		glm::vec3 velocity = glm::normalize(it->direction)*it->speed;
 		it->entity->rigidBody->setLinearVelocity(btVector3(velocity.x, velocity.y, velocity.z));
 	}
 }
