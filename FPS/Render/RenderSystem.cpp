@@ -36,7 +36,7 @@ void RenderSystem::destroyRenderSystem()
 void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float aspect)
 {
 	auto spotLight = LightSystem::getLightSystem()->getSpotLight();
-	spotLight->position = camera->position;
+	spotLight->position = camera->getPosition();
 	spotLight->direction = camera->dir;
 	spotLight->cutOff = glm::cos(glm::radians(12.5f));
 	spotLight->outerCutOff = glm::cos(glm::radians(17.0f));
@@ -61,8 +61,8 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 		// for(auto mesh : it->object->meshes)
 		// 	render(mesh, P, V, M, it->shaderInterface,cameraPosition);
 		
-		if (glm::distance(it->position, camera->position) >0 ) {
-			auto pos = it->rigidBody->getWorldTransform().getOrigin();
+		auto pos = it->rigidBody->getWorldTransform().getOrigin();
+		if (glm::distance(glm::vec3(pos.x(),pos.y(),pos.z()), camera->getPosition()) <40 ) {
 			auto M = translate(glm::mat4(1.0f), glm::vec3(pos.x(),pos.y(),pos.z()));
 
 			M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -103,7 +103,7 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 	//light
 	int pointLightsNumber = 0;
 	for (auto it : *lighSystem->getPointLights()) {
-		if (it->active == true && false)
+		if (it->active == true)
 		{
 			
 			shader->setVec3("pointLights["+std::to_string(pointLightsNumber)+"].position", it->position);

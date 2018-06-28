@@ -17,8 +17,10 @@ PointLight::~PointLight()
 
 void PointLight::update()
 {
-	if (entity != nullptr)
-		position = entity->position;
+	if (entity != nullptr) {
+		auto pos = entity->rigidBody->getWorldTransform().getOrigin();
+		position = glm::vec3(pos.x(), pos.y(), pos.z());
+	}
 }
 
 void PointLight::bind(Entity* entity)

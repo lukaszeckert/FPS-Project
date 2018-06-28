@@ -37,6 +37,7 @@ void GameManager::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 }
 void GameManager::processInput(GLFWwindow * window, float dTime)
 {
+	
 	auto camera = resourceManager->getCamera();
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera->processMovement(FORWARD,dTime*4);
@@ -48,7 +49,7 @@ void GameManager::processInput(GLFWwindow * window, float dTime)
 		camera->processMovement(RIGHT, dTime*4);
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 	{
-		projectileManager->createProjectile(camera->getPosition(), camera->dir, 3, glm::vec3(1.0, 0.0, 0.0));
+			projectileManager->createProjectile(camera->getPosition(), camera->dir, 50, glm::vec3(1.0, 0.0, 0.0));
 	}
 
 }

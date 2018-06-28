@@ -29,8 +29,7 @@ void Camera::processMovement(Camera_Movement direction, float deltaTime)
 
 	cameraRigidBody->activate(true);
 	if (direction == FORWARD)
-		cameraRigidBody->setLinearVelocity(btVector3(1, 0, 0));
-		//cameraRigidBody->translate(btDir * velocity);
+		cameraRigidBody->translate(btDir * velocity);
 	if (direction == BACKWARD)
 		cameraRigidBody->translate(btDir * velocity * (-1));	
 	if (direction == LEFT)

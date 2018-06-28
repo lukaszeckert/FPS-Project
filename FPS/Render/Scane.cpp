@@ -16,28 +16,31 @@ void Scane::createShaders()
 void Scane::createLights()
 {
 	auto lightSystem = LightSystem::getLightSystem();
-	auto light = lightSystem->createPointLighs(glm::vec3(-4, 2, 5));
+	lightSystem->getDirectionalLight()->ambient = glm::vec3(0.1, 0.1, 0.1);
+	lightSystem->getDirectionalLight()->diffuse = glm::vec3(0.1, 0.1, 0.1);
+	lightSystem->getDirectionalLight()->specular = glm::vec3(0.1, 0.1, 0.1);
+//	auto light = lightSystem->createPointLighs(glm::vec3(-4, 2, 5));
 
 
-	light = lightSystem->createPointLighs(glm::vec3(4, 2, 5));
-	light->active = true;
-	light->linear = 0.007;
-	light->quadratic = 0.0002;
-	light->diffuse = glm::vec3(1, 1, 1);
-	light->ambient = glm::vec3(1, 1, 1);
-	light->specular = glm::vec3(1, 1, 1);
-	lightSystem->addPointLight(light);
+//	light = lightSystem->createPointLighs(glm::vec3(4, 2, 5));
+//	light->active = true;
+//	light->linear = 0.007;
+//	light->quadratic = 0.0002;
+//	light->diffuse = glm::vec3(1, 1, 1);
+//	light->ambient = glm::vec3(1, 1, 1);
+//	light->specular = glm::vec3(1, 1, 1);
+//	lightSystem->addPointLight(light);
 
 }
 
 void Scane::createObjects(std::vector<ObjectData> objects)
 {
-//	for (auto ob : objects)
-//	{
-//		auto object = ObjectLoaderInterface::loadObjFile(ob.filename.c_str(), resourceManager->getTextureArray());
-//		resourceManager->getObjectArray()->push_back(object);
-//		object_map[ob.id] = object;
-//	}
+	for (auto ob : objects)
+	{
+		auto object = ObjectLoaderInterface::loadObjFile(ob.filename.c_str(), resourceManager->getTextureArray());
+		resourceManager->getObjectArray()->push_back(object);
+		object_map[ob.id] = object;
+	}
 	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/Projectile.obj", resourceManager->getTextureArray());
 	resourceManager->getObjectArray()->push_back(object);
 	resourceManager->setProjectileObject(object);
@@ -145,7 +148,7 @@ void Scane::createScane()
 	
 	createShaders();
 	createObjects(scane.objectData);
-	//createLayers(scane.layerData, scane.entityData);
+	createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
 	

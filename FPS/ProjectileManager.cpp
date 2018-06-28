@@ -32,6 +32,7 @@ Projectile * ProjectileManager::createProjectile(glm::vec3 position, glm::vec3 d
 		object = (&ResourceManager::getResourceManager())->getProjectileObject();
 		shader = (&ResourceManager::getResourceManager())->getProjectileShader();
 	}
+	
 	auto entity = new Entity(position+direction, object, shader);
 	entity->color = color;
 	
