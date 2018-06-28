@@ -10,10 +10,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Bump Panel_0_textures\\Panel_0_normals.jpg
-map_Ka Panel_0_textures\\Panel_Diffuse_1.png
-map_Ke Panel_0_textures\\Panel_0_Emmiter.jpg
-map_Ks Panel_0_textures\\Panel_Specular.png
+map_Bump Panel_0_textures/Panel_0_normals.jpg
+map_Ka Panel_0_textures/Panel_Diffuse_1.png
+map_Ke Panel_0_textures/Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures/Panel_Specular.png
 
 newmtl Material.004
 Ns 92.156863
@@ -24,10 +24,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Bump Panel_0_textures\\Panel_0_normals.jpg
-map_Ka Panel_0_textures\\Panel_Diffuse_1.png
-map_Ke Panel_0_textures\\Panel_0_Emmiter.jpg
-map_Ks Panel_0_textures\\Panel_Specular.png
+map_Bump Panel_0_textures/Panel_0_normals.jpg
+map_Ka Panel_0_textures/Panel_Diffuse_1.png
+map_Ke Panel_0_textures/Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures/Panel_Specular.png
 
 newmtl Material.005
 Ns 92.156863
@@ -38,10 +38,10 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Bump Panel_0_textures\\Panel_0_normals.jpg
-map_Ka Panel_0_textures\\Panel_Diffuse_1.png
-map_Ke Panel_0_textures\\Panel_0_Emmiter.jpg
-map_Ks Panel_0_textures\\Panel_Specular.png
+map_Bump Panel_0_textures/Panel_0_normals.jpg
+map_Ka Panel_0_textures/Panel_Diffuse_1.png
+map_Ke Panel_0_textures/Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures/Panel_Specular.png
 
 newmtl Material.006
 Ns 92.156863
@@ -52,7 +52,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Bump Panel_0_textures\\Panel_0_normals.jpg
-map_Ka Panel_0_textures\\Panel_Diffuse_1.png
-map_Ke Panel_0_textures\\Panel_0_Emmiter.jpg
-map_Ks Panel_0_textures\\Panel_Specular.png
+map_Bump Panel_0_textures/Panel_0_normals.jpg
+map_Ka Panel_0_textures/Panel_Diffuse_1.png
+map_Ke Panel_0_textures/Panel_0_Emmiter.jpg
+map_Ks Panel_0_textures/Panel_Specular.png
