@@ -14,6 +14,7 @@ Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity),
 	entity->rigidBody = new btRigidBody(cameraRigidBodyCI);
 	entity->type = EntityType::PROJECTILE;
 	entity->rigidBody->setUserPointer(entity);
+	entity->overObject = this;
 	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(entity->rigidBody);
 }
 
