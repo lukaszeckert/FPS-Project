@@ -17,6 +17,8 @@ class ResourceManager
 	std::vector<Entity *> *EntityArray;
 	std::vector<Texture *> *TextureArray;
 	std::vector<Object *> *ObjectArray;
+	Object* projectileObject;
+	ShaderInterface* projectileShader;
 	LightSystem* lightSystem;
 	Camera *camera;
 	static ResourceManager* resourceManager;
@@ -24,6 +26,7 @@ class ResourceManager
 	~ResourceManager();
 public:
 	btRigidBody* groundRigidBody; // needed for testing only
+	
 	std::vector<ShaderInterface *>* getShaderArray();
 //	std::vector<VertexBuffer *>* getBufferArray();
 	std::vector<Entity*>* getEntityArray();
@@ -35,5 +38,9 @@ public:
 	static void destroyResourceManager();
 	Camera* getCamera();
 	void setCamera(Camera* camera);
+	void setProjectileObject(Object *object);
+	Object* getProjectileObject();
+	void setProjectileShader(ShaderInterface* shader);
+	ShaderInterface* getProjectileShader();
 };
 

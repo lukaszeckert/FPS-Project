@@ -9,7 +9,7 @@ Mesh::Mesh(std::string name, std::vector<VertexData> points, Texture *tex, Textu
     for(auto point: points) {
       shape->addPoint(btVector3(point.postion.x, point.postion.y, point.postion.z));
     }
-    shape->optimizeConvexHull();    
+//    shape->optimizeConvexHull();    
   }
 
 Mesh::~Mesh() {

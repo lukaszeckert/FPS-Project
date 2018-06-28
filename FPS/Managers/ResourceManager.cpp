@@ -149,3 +149,23 @@ void ResourceManager::setCamera(Camera* camera)
 	this->camera = camera;
 }
 
+void ResourceManager::setProjectileObject(Object * object)
+{
+	projectileObject = object;
+}
+
+Object * ResourceManager::getProjectileObject()
+{
+	return projectileObject;
+}
+
+void ResourceManager::setProjectileShader(ShaderInterface * shader)
+{
+	projectileShader = shader;
+}
+
+ShaderInterface* ResourceManager::getProjectileShader()
+{
+	return  projectileShader;
+}
+

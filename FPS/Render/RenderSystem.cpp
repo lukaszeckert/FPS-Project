@@ -62,7 +62,8 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 		// 	render(mesh, P, V, M, it->shaderInterface,cameraPosition);
 		
 		if (glm::distance(it->position, camera->position) >0 ) {
-			auto M = translate(glm::mat4(1.0f), it->position);
+			auto pos = it->rigidBody->getWorldTransform().getOrigin();
+			auto M = translate(glm::mat4(1.0f), glm::vec3(pos.x(),pos.y(),pos.z()));
 
 			M = glm::rotate(M, it->rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 			M = glm::rotate(M, it->rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));

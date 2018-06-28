@@ -1,16 +1,21 @@
 #include "LightSystem.h"
 
 LightSystem *LightSystem::lightsytem = nullptr;
+
 LightSystem::~LightSystem()
 {
 	for (auto it : *pointLights)
 		delete it;
+	for (auto it : *unbindedLights)
+		delete it;
 	delete pointLights;
+	delete unbindedLights;
 }
 LightSystem::LightSystem()
 {
 	pointLights = new std::vector<PointLight*>();
 	directionalLight = new DirectionalLight();
+	unbindedLights = new std::vector<PointLight*>();
 	spotLight = new SpotLight();
 }
 LightSystem * LightSystem::getLightSystem()
@@ -80,6 +85,37 @@ void LightSystem::addPointLight(PointLight * pointLight)
 void LightSystem::addPointLight(glm::vec3 position, float constant, float linear, float quadratic, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
 {
 	addPointLight(new PointLight(PointLight(position, constant, linear, quadratic, ambient, diffuse, specular)));
+}
+
+void LightSystem::update()
+{
+	for (auto it : *pointLights)
+		it->update();
+}
+
+PointLight * LightSystem::bind(Entity * entity)
+{
+	PointLight* res;
+	if (unbindedLights->size() == 0)
+	{
+		res = createPointLighs(entity->position);
+		res->bind(entity);
+	}
+	else
+	{
+		res = unbindedLights->back();
+		unbindedLights->pop_back();
+	}
+	pointLights->push_back(res);
+	return res;
+}
+
+PointLight * LightSystem::unbind(PointLight * light)
+{
+	light->unbind();
+	pointLights->erase(std::remove(pointLights->begin(), pointLights->end(), light), pointLights->end());
+	unbindedLights->push_back(light);
+	return light;
 }
 
 

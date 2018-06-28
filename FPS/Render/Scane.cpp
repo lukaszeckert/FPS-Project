@@ -7,7 +7,10 @@ void Scane::createShaders()
 	//shader_color = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
 	auto shaderArray = resourceManager->getShaderArray();
 	shaderArray->push_back(shader);
-	//shaderArray->push_back(shader_color);
+	auto shader_projectile = new ShaderInterface("Shaders/vShader.glsl", "Shaders/fColor.glsl");
+	shaderArray->push_back(shader_projectile);
+	resourceManager->setProjectileShader(shader_projectile);
+		//shaderArray->push_back(shader_color);
 }
  
 void Scane::createLights()
@@ -29,12 +32,15 @@ void Scane::createLights()
 
 void Scane::createObjects(std::vector<ObjectData> objects)
 {
-	for (auto ob : objects)
-	{
-		auto object = ObjectLoaderInterface::loadObjFile(ob.filename.c_str(), resourceManager->getTextureArray());
-		resourceManager->getObjectArray()->push_back(object);
-		object_map[ob.id] = object;
-	}
+//	for (auto ob : objects)
+//	{
+//		auto object = ObjectLoaderInterface::loadObjFile(ob.filename.c_str(), resourceManager->getTextureArray());
+//		resourceManager->getObjectArray()->push_back(object);
+//		object_map[ob.id] = object;
+//	}
+	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/Projectile.obj", resourceManager->getTextureArray());
+	resourceManager->getObjectArray()->push_back(object);
+	resourceManager->setProjectileObject(object);
 /*	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", resourceManager->getTextureArray());
 	float poz = 0;
 	for (int i = 0; i < 4; ++i)
@@ -139,7 +145,8 @@ void Scane::createScane()
 	
 	createShaders();
 	createObjects(scane.objectData);
-	createLayers(scane.layerData, scane.entityData);
+	//createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
+	
 }

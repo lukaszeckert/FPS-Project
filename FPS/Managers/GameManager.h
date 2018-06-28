@@ -6,11 +6,13 @@
 #include "../Managers/ResourceManager.h"
 #include "../Render/Scane.h"
 #include <functional>
+#include "../ProjectileManager.h"
 
 class GameManager
 {
 	static GameManager *gameManager;
 
+	ProjectileManager *projectileManager;
 	ResourceManager *resourceManager;
 	GLFWwindow* _window;
 	bool _running;
@@ -22,7 +24,7 @@ class GameManager
 	void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	void processInput(GLFWwindow *windows, float dTime);
 
-	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager, Scane* scane);
+	GameManager(bool running, GLFWwindow* window, RenderSystem *renderSystem, ResourceManager* resourceManager, Scane* scane, ProjectileManager* projectileManager);
 	~GameManager();
 public:
 	static GameManager& getGameManager();

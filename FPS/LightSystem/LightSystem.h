@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <algorithm>
 #include "PointLight.h"
 #include "DirectionalLight.h"
 #include "SpotLight.h"
@@ -8,6 +9,7 @@ class LightSystem {
 	
 	static LightSystem* lightsytem;
 	std::vector<PointLight*> *pointLights;
+	std::vector<PointLight*> *unbindedLights;
 	DirectionalLight* directionalLight;
 	SpotLight* spotLight;
 
@@ -25,6 +27,7 @@ public:
 	SpotLight* getSpotLight();
 	void addPointLight(PointLight* pointLight);
 	void addPointLight(glm::vec3 postion, float constant = 1.0f, float linear = 1.0, float quadratic = 1.8, glm::vec3 ambient = glm::vec3(1.0, 1.0, 1.0), glm::vec3 diffuse = glm::vec3(1.0, 1.0, 1.0), glm::vec3 specular = glm::vec3(1.0, 1.0, 1.0));
-	
-
+	void update();
+	PointLight* bind(Entity* entity);
+	PointLight* unbind(PointLight* light);
 };

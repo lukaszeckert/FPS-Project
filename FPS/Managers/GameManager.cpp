@@ -46,6 +46,10 @@ void GameManager::processInput(GLFWwindow * window, float dTime)
 		camera->processMovement(LEFT, dTime*4);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera->processMovement(RIGHT, dTime*4);
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		projectileManager->createProjectile(camera->getPosition(), camera->dir, 3, glm::vec3(1.0, 0.0, 0.0));
+	}
 
 }
 GameManager& GameManager::getGameManager() {
@@ -109,7 +113,7 @@ GameManager& GameManager::getGameManager() {
 		glEnable(GL_DEPTH_TEST);
 		
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
-		,&ResourceManager::getResourceManager(), new Scane());
+		,&ResourceManager::getResourceManager(), new Scane(), &ProjectileManager::getProjectileManager());
 		
 		
 	
@@ -139,8 +143,9 @@ void GameManager::runGameLoop()
 	while (_running){
 		currentFrame = glfwGetTime();
 		dTime = currentFrame - lastFrame;
-
+		projectileManager->update();
 		resourceManager->dynamicsWorld->stepSimulation(1.0f/60.0f, 10);
+		LightSystem::getLightSystem()->update();
 		_running = !glfwWindowShouldClose(_window);
 
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
@@ -149,8 +154,8 @@ void GameManager::runGameLoop()
 		lastFrame = currentFrame;
 	}
 }
-GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager, Scane* scane)
-: _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager){
+GameManager::GameManager(bool running,GLFWwindow* window, RenderSystem* renderSystem, ResourceManager *resourceManager, Scane* scane, ProjectileManager* projectileManager)
+: _running(running), _window(window), _renderSystem(renderSystem), resourceManager(resourceManager), projectileManager(projectileManager){
 	scane->createScane();
 	
 };
