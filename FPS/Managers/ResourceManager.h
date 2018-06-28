@@ -9,7 +9,6 @@
 #include "../LightSystem/LightSystem.h"
 #include "../Models/Camera.h"
 
-
 class ResourceManager
 {
 	std::vector<ShaderInterface *> *shaderArray;

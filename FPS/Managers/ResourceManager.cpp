@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "../ProjectileManager.h"
 
 void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
 	int numManifolds = world->getDispatcher()->getNumManifolds();
@@ -12,10 +13,25 @@ void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
 			for (int j = 0; j < numContacts; j++)
 			{
 					btManifoldPoint& pt = contactManifold->getContactPoint(j);
-					if (pt.getDistance() < 0.f && obA != ResourceManager::getResourceManager().groundRigidBody
-						&& obB != ResourceManager::getResourceManager().groundRigidBody)
-					{
-							std::cout << "Contact" << std::endl;
+					Entity *a = (Entity *)(obA->getUserPointer());
+					Entity *b = (Entity *)(obB->getUserPointer());
+					if(a != nullptr && b != nullptr) {
+						if (pt.getDistance() < 0.f)
+						{
+								if(a->type == EntityType::PROJECTILE) {
+									Projectile *projectile = (Projectile *)(a->overObject);
+									ProjectileManager::getProjectileManager().destoryProjectile(projectile);
+									if(b->type == EntityType::ENEMY) {
+
+									}
+								} else if(b->type == EntityType::PROJECTILE) {
+									Projectile *projectile = (Projectile *)(b->overObject);
+									ProjectileManager::getProjectileManager().destoryProjectile(projectile);
+									if(a->type == EntityType::ENEMY) {
+
+									}
+								}
+						}
 					}
 			}
 	}

@@ -7,6 +7,12 @@
 #include <vector>
 #include <bullet/btBulletDynamicsCommon.h>
 
+enum class EntityType {
+	PROJECTILE,
+	ENEMY,
+	OTHER
+};
+
 class Entity
 {
 	//TODO add textures
@@ -15,11 +21,15 @@ class Entity
 
 public:
 
-	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface);
-	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, glm::vec3 color);
+	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, 
+		EntityType type = EntityType::OTHER);
+	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, 
+		glm::vec3 color, EntityType type = EntityType::OTHER);
 	~Entity();
 	
 	//VertexBuffer* vertexBuffer;
+	void *overObject;
+	EntityType type;
 	Object* object;
 	ShaderInterface* shaderInterface;
 	btRigidBody* rigidBody;	
@@ -37,4 +47,3 @@ public:
 	//GLuint diffuseMap;
 	//GLuint specularMap;
 };
-

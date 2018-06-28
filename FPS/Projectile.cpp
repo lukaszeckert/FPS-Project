@@ -1,9 +1,5 @@
 #include "Projectile.h"
 
-
-
-
-
 Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity), pointLight(pointLight)
 {
 	pointLight->active = true;
@@ -16,12 +12,14 @@ Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity),
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
 	btRigidBody::btRigidBodyConstructionInfo cameraRigidBodyCI(mass, cameraMotionState, cameraShape, cameraInertia);
 	entity->rigidBody = new btRigidBody(cameraRigidBodyCI);
+	entity->type = EntityType::PROJECTILE;
+	entity->rigidBody->setUserPointer(entity);
 	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(entity->rigidBody);
 }
 
 Projectile::~Projectile()
 {
-	LightSystem::getLightSystem()->unbind(pointLight);
 	pointLight->active = false;
+	LightSystem::getLightSystem()->unbind(pointLight);
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
 }
