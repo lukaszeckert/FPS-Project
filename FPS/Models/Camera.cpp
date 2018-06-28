@@ -21,22 +21,38 @@ glm::mat4 Camera::getViewMatrix()
 	return glm::lookAt(position, position + dir, up);
 }
 
-void Camera::processMovement(Camera_Movement direction, float deltaTime)
+void Camera::processMovement(int direction, float deltaTime)
 {	
-	auto btDir = btVector3(dir.x, dir.y, dir.z);
+	auto btDir = btVector3(dir.x, 0, dir.z);
 	auto btRight = btVector3(right.x, right.y, right.z);
-	float velocity = movementSpeed * deltaTime;
-
+	glm::vec3 velocity = glm::vec3(0, 0, 0); //movementSpeed * deltaTime;
+	
 	cameraRigidBody->activate(true);
-	if (direction == FORWARD)
-		cameraRigidBody->translate(btDir * velocity);
-	if (direction == BACKWARD)
-		cameraRigidBody->translate(btDir * velocity * (-1));	
-	if (direction == LEFT)
-		cameraRigidBody->translate(btRight * velocity * (-1));
-	if (direction == RIGHT)
-		cameraRigidBody->translate(btRight * velocity);
-
+	if (direction & FORWARD)
+		velocity += dir;
+	//	cameraRigidBody->setLinearVelocity(btDir.normalize()*movementSpeed);
+	//	cameraRigidBody->translate(btDir * velocity);
+	if (direction & BACKWARD)
+		velocity -= dir;
+	//	cameraRigidBody->setLinearVelocity(btDir.normalize()*movementSpeed*(-1));
+	//	cameraRigidBody->translate(btDir * velocity * (-1));	
+	if (direction & LEFT)
+		velocity -= right;
+	//cameraRigidBody->setLinearVelocity(btRight.normalize()*movementSpeed*(-1));
+	//	cameraRigidBody->translate(btRight * velocity * (-1));
+	if (direction & RIGHT)
+		velocity += right;
+	//	cameraRigidBody->setLinearVelocity(btRight.normalize()*movementSpeed);
+	//	cameraRigidBody->translate(btRight * velocity);
+	velocity.y = 0;
+	float y = cameraRigidBody->getLinearVelocity().y();
+	if (velocity.x != 0 || velocity.z != 0) {
+		velocity = glm::normalize(velocity);
+		velocity *=movementSpeed;
+		
+		cameraRigidBody->setLinearVelocity(btVector3(velocity.x, y, velocity.z));
+	}
+	else cameraRigidBody->setLinearVelocity(btVector3(0, y, 0));
 	updateCameraVectors();
 }
 
