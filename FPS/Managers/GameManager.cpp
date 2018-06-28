@@ -23,6 +23,12 @@ void GameManager::wrapperMouseClick(GLFWwindow * window, double xpos, double ypo
 	auto &gm = GameManager::getGameManager();
 	gm.mouse_callback(window, xpos, ypos);
 }
+void GameManager::wrapperMouseButtonCallback(GLFWwindow * window, int button, int action, int mods)
+{
+	
+	auto &gm = GameManager::getGameManager();
+	gm.mouse_button_callback(window, button, action, mods);
+}
 void GameManager::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 {
 	static double pxPos = -1;
@@ -34,6 +40,16 @@ void GameManager::mouse_callback(GLFWwindow * window, double xpos, double ypos)
 	pxPos = xpos;
 	pyPos = ypos;
 	
+}
+void GameManager::mouse_button_callback(GLFWwindow * window, int button, int action, int mods)
+{
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+		if (remainingReloadTime <= 0)
+		{
+			remainingReloadTime = RELOAD_TIME;
+			auto camera = resourceManager->getCamera();
+			projectileManager->createProjectile(camera->getPosition(), camera->dir, 50, glm::vec3(1.0, 0.0, 0.0));
+		}
 }
 void GameManager::processInput(GLFWwindow * window, float dTime)
 {
@@ -52,10 +68,7 @@ void GameManager::processInput(GLFWwindow * window, float dTime)
 		mask += RIGHT;
 //		camera->processMovement(RIGHT, dTime*4);
 	camera->processMovement(mask, dTime * 4);
-	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-			projectileManager->createProjectile(camera->getPosition(), camera->dir, 50, glm::vec3(1.0, 0.0, 0.0));
-	}
+
 
 }
 GameManager& GameManager::getGameManager() {
@@ -115,7 +128,7 @@ GameManager& GameManager::getGameManager() {
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetFramebufferSizeCallback(window, windowResize);
 		glfwSetCursorPosCallback(window, wrapperMouseClick);
-
+		glfwSetMouseButtonCallback(window, wrapperMouseButtonCallback);
 		glEnable(GL_DEPTH_TEST);
 		
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
@@ -157,6 +170,7 @@ void GameManager::runGameLoop()
 		_renderSystem->renderAll(resourceManager->getEntityArray(), resourceManager->getCamera(), aspect);
 		glfwPollEvents();
 		processInput(_window, dTime);
+		remainingReloadTime = std::max(0.0f, remainingReloadTime - dTime);
 		lastFrame = currentFrame;
 	}
 }

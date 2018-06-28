@@ -5,7 +5,7 @@ Camera::Camera(glm::vec3 position,glm::vec3 dir, glm::vec3 up, float yaw, float 
 {
 	btCollisionShape* cameraShape = new btBoxShape(btVector3(1.25, 0.5, 1.25));
 	btDefaultMotionState* cameraMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 10, 0)));
+                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(8, 1, 50)));
 	btScalar mass = 1;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
