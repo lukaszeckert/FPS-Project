@@ -25,8 +25,15 @@ void EnemyManager::destroyEnemyManager()
 
 void EnemyManager::update(float dTime)
 {
+	
 	for (auto it : enemies)
 		it->update(dTime);
+	for(int i=0;i<enemies.size();++i)
+		if (enemies[i]->getHp() <= 0)
+		{
+			destroyEnemy(enemies[i]);
+			i--;
+		}
 }
 
 void EnemyManager::createEnemy(glm::vec3 position, Object * object, ShaderInterface * shader)

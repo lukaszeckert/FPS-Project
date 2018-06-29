@@ -17,6 +17,6 @@ public:
 	static void destroyProjectileManager();
 	Projectile* createProjectile(glm::vec3 position, glm::vec3 direction, float speed, glm::vec3 color);
 	void destoryProjectile(Projectile* projectile);
-	void update();
+	void update(float dTime);
 };
 

@@ -1,5 +1,6 @@
 #include "ResourceManager.h"
 #include "../ProjectileManager.h"
+#include "../Enemy.h"
 
 void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
 	int numManifolds = world->getDispatcher()->getNumManifolds();
@@ -15,24 +16,29 @@ void tickCallback(btDynamicsWorld *world, btScalar timeStep) {
 					btManifoldPoint& pt = contactManifold->getContactPoint(j);
 					Entity *a = (Entity *)(obA->getUserPointer());
 					Entity *b = (Entity *)(obB->getUserPointer());
-					if(a != nullptr && b != nullptr) {
-						if (pt.getDistance() < 0.f)
+					if (a != nullptr && b != nullptr && a->type == EntityType::PROJECTILE && b->type == EntityType::PROJECTILE)
+						continue;
+						if (pt.getDistance() < 0.1f)
 						{
-								if(a->type == EntityType::PROJECTILE) {
+
+								if(a!=nullptr && a->type == EntityType::PROJECTILE) {
 									Projectile *projectile = (Projectile *)(a->overObject);
+									a->rigidBody->setUserPointer(nullptr);
 									ProjectileManager::getProjectileManager().destoryProjectile(projectile);
-									if(b->type == EntityType::ENEMY) {
-
+									if(b !=nullptr && b->type == EntityType::ENEMY) {
+										((Enemy*)b->getDataPointer())->damage(30);
 									}
-								} else if(b->type == EntityType::PROJECTILE) {
+								} if(b!=nullptr && b->type == EntityType::PROJECTILE) {
+								
 									Projectile *projectile = (Projectile *)(b->overObject);
+									b->rigidBody->setUserPointer(nullptr);
 									ProjectileManager::getProjectileManager().destoryProjectile(projectile);
-									if(a->type == EntityType::ENEMY) {
-
+									if(a!=nullptr && a->type == EntityType::ENEMY) {
+										((Enemy*)a->getDataPointer())->damage(30);
 									}
 								}
 						}
-					}
+					
 			}
 	}
 }
@@ -50,11 +56,11 @@ ResourceManager::ResourceManager()
 	dynamicsWorld->setInternalTickCallback(tickCallback);
 
 	btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -0.2, 0)));
+	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0.2, 0)));
 	btRigidBody::btRigidBodyConstructionInfo
 					groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
 	groundRigidBody = new btRigidBody(groundRigidBodyCI);
-	dynamicsWorld->addRigidBody(groundRigidBody);
+	dynamicsWorld->addRigidBody(groundRigidBody,1,1);
 
 
 	shaderArray = new std::vector<ShaderInterface*>();
@@ -187,7 +193,13 @@ ShaderInterface* ResourceManager::getProjectileShader()
 
 void ResourceManager::removeEntity(Entity * entity)
 {
-	EntityArray->erase(std::remove_if(EntityArray->begin(), EntityArray->end(), [entity](auto it) {return it == entity; }), EntityArray->end());
+	//EntityArray->erase(std::remove_if(EntityArray->begin(), EntityArray->end(), [entity](auto it) {return it == entity; }), EntityArray->end());
+	for(int i=0;i<EntityArray->size();++i)
+		if (EntityArray->at(i) == entity)
+		{
+			(*EntityArray)[i] = EntityArray->back();
+			EntityArray->pop_back();
+		}
 	delete entity;
 }
 

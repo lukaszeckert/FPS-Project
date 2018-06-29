@@ -23,14 +23,15 @@ Entity::Entity(glm::vec3 position, Object* object, ShaderInterface * shaderInter
 	rigidBody->setUserPointer(this);
 	
 	
-	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(rigidBody);
+	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(rigidBody,1,1);
 }
 
 
 
 Entity::~Entity()
 {
-	
+	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(rigidBody);
+	delete rigidBody->getMotionState();
 }
 
 glm::vec3 Entity::getPosition()
@@ -38,6 +39,14 @@ glm::vec3 Entity::getPosition()
 	btVector3 &vec = rigidBody->getWorldTransform().getOrigin();
 	return glm::vec3(vec.x(), vec.y(), vec.z());
 	return glm::vec3();
+}
+void Entity::setDataPointer(void* data)
+{
+	dataPointer = data;
+}
+void* Entity::getDataPointer()
+{
+	return dataPointer;
 }
 
 

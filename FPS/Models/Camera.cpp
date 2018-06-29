@@ -3,15 +3,15 @@
 
 Camera::Camera(glm::vec3 position,glm::vec3 dir, glm::vec3 up, float yaw, float pitch):dir(dir),position(position),worldUp(up),yaw(yaw),pitch(pitch),movementSpeed(SPEED),mouseSensitivity(SENSITIVITY)
 {
-	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.5, 1.25, 0.5));
+	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.75, 1.25, 0.75));
 	btDefaultMotionState* cameraMotionState =
-                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(8, 1, 50)));
-	btScalar mass = 100;
+                new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(10, 1, 60)));
+	btScalar mass = 1;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
 	btRigidBody::btRigidBodyConstructionInfo cameraRigidBodyCI(mass, cameraMotionState, cameraShape, cameraInertia);
 	cameraRigidBody = new btRigidBody(cameraRigidBodyCI);
-	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(cameraRigidBody);
+	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(cameraRigidBody,1,1);
 	
 	updateCameraVectors();
 }

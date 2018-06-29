@@ -12,6 +12,7 @@ public:
 	PointLight* pointLight;
 	glm::vec3 direction, color;
 	float speed;
+	float time = 0;
 	Projectile(Entity* entity, PointLight* pointLight);
 	~Projectile();
 };

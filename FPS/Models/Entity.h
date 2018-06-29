@@ -27,6 +27,8 @@ public:
 		glm::vec3 color, EntityType type = EntityType::OTHER, glm::vec3 rotation = glm::vec3(0,0,0));
 	~Entity();
 	glm::vec3 getPosition();
+	void setDataPointer(void * data);
+	void * getDataPointer();
 	//VertexBuffer* vertexBuffer;
 	void *overObject;
 	EntityType type;
@@ -36,7 +38,7 @@ public:
 	glm::vec3 position;
 	glm::vec3 scale;
 	glm::vec3 rotation;
-	
+	void* dataPointer;
 	glm::vec3 color;
 	//Material
 	//glm::vec3 ambient;

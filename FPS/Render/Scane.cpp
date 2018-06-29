@@ -138,7 +138,7 @@ void Scane::createCamera()
 void Scane::createEnemies()
 {
 	
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(7, 1, 40), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(10, 2, 50), enemyObject, shader);
 }
 
 
@@ -154,7 +154,7 @@ void Scane::createScane()
 	
 	createShaders();
 	createObjects(scane.objectData);
-	//createLayers(scane.layerData, scane.entityData);
+	createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
 	createEnemies();

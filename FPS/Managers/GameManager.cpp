@@ -48,7 +48,7 @@ void GameManager::mouse_button_callback(GLFWwindow * window, int button, int act
 		{
 			remainingReloadTime = RELOAD_TIME;
 			auto camera = resourceManager->getCamera();
-			projectileManager->createProjectile(camera->getPosition(), camera->dir, 50, glm::vec3(1.0, 0.0, 0.0));
+			projectileManager->createProjectile(camera->getPosition(), camera->dir, 50, glm::vec3(0.0, 1.0, 0.0));
 		}
 }
 void GameManager::processInput(GLFWwindow * window, float dTime)
@@ -162,9 +162,9 @@ void GameManager::runGameLoop()
 	while (_running){
 		currentFrame = glfwGetTime();
 		dTime = currentFrame - lastFrame;
-		projectileManager->update();
+		projectileManager->update(dTime);
 		enemyManager->update(dTime);
-		resourceManager->dynamicsWorld->stepSimulation(1.0f/60.0f, 10);
+		resourceManager->dynamicsWorld->stepSimulation(1.0f/60.0f, 1);
 		LightSystem::getLightSystem()->update();
 		
 		_running = !glfwWindowShouldClose(_window);

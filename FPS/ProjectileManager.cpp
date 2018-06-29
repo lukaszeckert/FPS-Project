@@ -43,7 +43,7 @@ Projectile * ProjectileManager::createProjectile(glm::vec3 position, glm::vec3 d
 	light->specular = color;
 	light->constant = 1;
 	light->linear = 0.7;
-	light->quadratic = 0.07;
+	light->quadratic = 0.7;
 	
 	auto res = new Projectile(entity, light);
 	projectiles->push_back(res);
@@ -60,14 +60,24 @@ Projectile * ProjectileManager::createProjectile(glm::vec3 position, glm::vec3 d
 
 void ProjectileManager::destoryProjectile(Projectile * projectile)
 {
-	projectiles->erase(std::remove(projectiles->begin(), projectiles->end(), projectile), projectiles->end());
+	//projectiles->erase(std::remove(projectiles->begin(), projectiles->end(), projectile), projectiles->end());
+	for(int i = 0; i<projectiles->size(); ++i)
+		if (projectiles->at(i) == projectile)
+		{
+			(*projectiles)[i] = projectiles->back();
+			projectiles->pop_back();
+		}
 	delete projectile;
 }
 
-void ProjectileManager::update()
+void ProjectileManager::update(float dTime)
 {
 	for (auto it : *projectiles) {
+		it->time += dTime;
 		glm::vec3 velocity = glm::normalize(it->direction)*it->speed;
 		it->entity->rigidBody->setLinearVelocity(btVector3(velocity.x, velocity.y, velocity.z));
 	}
+	for (auto it : *projectiles)
+		if (it->time > 5)
+			destoryProjectile(it);
 }

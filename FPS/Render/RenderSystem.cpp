@@ -49,6 +49,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	glm::vec3 cameraPosition = camera->getPosition(); 
+	std::cout << cameraPosition.x << " " << cameraPosition.z << "\n";
 	auto V = glm::lookAt(cameraPosition, cameraPosition + camera->dir, camera->up);
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {

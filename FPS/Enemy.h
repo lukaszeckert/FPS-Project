@@ -17,5 +17,7 @@ public:
 	Enemy(Entity* entity, float hp=100);
 	~Enemy();
 	void update(float dTime);
+	float getHp();
+	void damage(float dm);
 };
 

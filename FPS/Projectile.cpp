@@ -4,10 +4,11 @@ Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity),
 {
 	pointLight->active = true;
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
+	delete entity->rigidBody;
 	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.3, 0.1, 0.3));
 	btDefaultMotionState* cameraMotionState =
 		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z)));
-	btScalar mass = 0.00001;
+	btScalar mass = 0.0001;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
 	btRigidBody::btRigidBodyConstructionInfo cameraRigidBodyCI(mass, cameraMotionState, cameraShape, cameraInertia);
@@ -15,13 +16,14 @@ Projectile::Projectile(Entity * entity, PointLight * pointLight):entity(entity),
 	entity->type = EntityType::PROJECTILE;
 	entity->rigidBody->setUserPointer(entity);
 	entity->overObject = this;
-	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(entity->rigidBody);
+	ResourceManager::getResourceManager().dynamicsWorld->addRigidBody(entity->rigidBody,1,1);
 }
 
 Projectile::~Projectile()
 {
-	pointLight->active = false;
-	LightSystem::getLightSystem()->unbind(pointLight);
-	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
+	if (pointLight != nullptr) {
+		pointLight->active = false;
+		LightSystem::getLightSystem()->unbind(pointLight);
+	}
 	ResourceManager::getResourceManager().removeEntity(entity);
 }

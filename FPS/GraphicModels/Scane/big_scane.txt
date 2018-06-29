@@ -37,7 +37,7 @@ e 32 0 0 0 1 1 1 0 0 0 5
 l 10 10 0 4 GraphicModels/Scane/room1_floor.txt
 l 11 10 0 4 GraphicModels/Scane/room1_walls.txt
 l 11 10 4 4 GraphicModels/Scane/room1_celling.txt
-l 11 10 0 4 GraphicModels/Scane/room1_items.txt
+l 11 10 1 4 GraphicModels/Scane/room1_items.txt
 #room2
 l 2 60 0 4 GraphicModels/Scane/room2_floor.txt
 l 2 60 0 4 GraphicModels/Scane/room2_walls.txt
