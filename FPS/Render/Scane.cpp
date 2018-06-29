@@ -137,8 +137,12 @@ void Scane::createCamera()
 
 void Scane::createEnemies()
 {
-	
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(7, 1, 40), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(23, 1, 47), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(11, 1, 9), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(42, 1, 7), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(74, 1, 11), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(58, 1, 61), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(40, 1, 90), enemyObject, shader);
 }
 
 
@@ -154,7 +158,7 @@ void Scane::createScane()
 	
 	createShaders();
 	createObjects(scane.objectData);
-	//createLayers(scane.layerData, scane.entityData);
+	createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
 	createEnemies();

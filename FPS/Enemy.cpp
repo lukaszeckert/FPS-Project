@@ -28,7 +28,6 @@ void Enemy::lookAt(glm::vec3 position)
 	currentLook.setY(0.0f);
 	currentLook.normalize();
 	btScalar angle = currentLook.angle(newLook);
-	std::cout << angle << " " << currentLook.x() << " " << currentLook.y() << " " << currentLook.z() << " " << newLook.x() << " " << newLook.y() << " " << newLook.z() << " cc\n";
 	// compute new rotation
 	auto c = currentLook.cross(newLook);
 	btQuaternion newRotation;
