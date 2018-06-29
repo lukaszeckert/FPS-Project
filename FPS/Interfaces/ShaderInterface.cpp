@@ -112,7 +112,6 @@ ShaderInterface::ShaderInterface(const char * sourceVS, const char * sourceFS)
 
 ShaderInterface::~ShaderInterface()
 {
-
 	free(vertexShader);
 	free(fragmetShader);
 	delete shader;

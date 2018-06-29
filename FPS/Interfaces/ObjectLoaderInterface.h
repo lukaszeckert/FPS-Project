@@ -15,8 +15,6 @@ class ObjectLoaderInterface
 {
 public:
 	static Object* loadObjFile(const char* filename, std::vector<Texture *> *TextureArray);
-	//ObjectLoaderInterface();
-	//~ObjectLoaderInterface();
 };
 
 #endif // !__ObjectLoaderInterface__h

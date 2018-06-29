@@ -53,13 +53,6 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {
 		auto it = Entitys->at(i);
-		// auto M = translate(glm::mat4(1.0f), it->position);
-		// M = glm::rotate(M, glm::radians(it->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		// M = glm::rotate(M, glm::radians(it->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		// M = glm::rotate(M, glm::radians(it->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-		// M = glm::scale(M, it->scale);
-		// for(auto mesh : it->object->meshes)
-		// 	render(mesh, P, V, M, it->shaderInterface,cameraPosition);
 		
 		auto pos = it->rigidBody->getWorldTransform().getOrigin();
 		if (glm::distance(glm::vec3(pos.x(),pos.y(),pos.z()), camera->getPosition()) <40 ) {
@@ -97,12 +90,6 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 	shader->setVec3("objectColor", color);
 	shader->setVec3("viewPos", cameraPosition);
 
-	//materials
-	//TODO add material information to entity class 
-//	shader->setVec3("material.ambient", 1.0, 0.5f, 0.31);
-//	shader->setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
-//	shader->setVec3("material.specular", 1.0f, 0.5f, 0.31f);
-//	shader->setFloat("material.shininess", 128.0f);
 
 	//light
 	int pointLightsNumber = 0;

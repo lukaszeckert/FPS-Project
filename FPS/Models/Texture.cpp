@@ -39,13 +39,11 @@ GLuint Texture::readTexture(const char * filename)
 Texture::Texture(const char * filename)
 {
 	tex = readTexture(filename);
-	std::cout << "Loaded texture: " << filename << "\n";
 }
 
 Texture::~Texture()
 {
 	glDeleteTextures(1, &tex);
-	std::cout << "Deleted texture: " << tex;
 }
 
 GLuint Texture::getTexture()

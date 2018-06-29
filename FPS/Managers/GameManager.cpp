@@ -75,9 +75,6 @@ GameManager& GameManager::getGameManager() {
 	if (gameManager == nullptr)
 	{
 
-
-
-
 		GLFWwindow* window; //Wska�nik na obiekt reprezentuj�cy okno
 		glfwSetErrorCallback([](int, const char* str) {
 			std::cout << "GLFW error: " << str << "\n";
@@ -89,7 +86,6 @@ GameManager& GameManager::getGameManager() {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 		window = glfwCreateWindow(1280, 720, "LearnOpenGL", NULL, NULL); //Utw�rz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
@@ -109,11 +105,6 @@ GameManager& GameManager::getGameManager() {
 			fprintf(stderr, "Nie mo�na zainicjowa� GLEW.\n");
 			exit(EXIT_FAILURE);
 		}
-
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 															 // glfw window creation
 															 // --------------------
 		
@@ -133,7 +124,6 @@ GameManager& GameManager::getGameManager() {
 		
 		gameManager = new GameManager(true,window, &RenderSystem::getRenderSystem(window)
 		,&ResourceManager::getResourceManager(), new Scane(), &ProjectileManager::getProjectileManager(), &EnemyManager::getEnemyManager());
-		
 		
 	
 		windowResize(window, 1280, 720);
