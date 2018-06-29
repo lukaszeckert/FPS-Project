@@ -41,5 +41,6 @@ public:
 	Object* getProjectileObject();
 	void setProjectileShader(ShaderInterface* shader);
 	ShaderInterface* getProjectileShader();
+	void removeEntity(Entity* entity);
 };
 

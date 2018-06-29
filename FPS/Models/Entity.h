@@ -26,7 +26,7 @@ public:
 	Entity(glm::vec3 position, Object* object, ShaderInterface *shaderInterface, 
 		glm::vec3 color, EntityType type = EntityType::OTHER, glm::vec3 rotation = glm::vec3(0,0,0));
 	~Entity();
-	
+	glm::vec3 getPosition();
 	//VertexBuffer* vertexBuffer;
 	void *overObject;
 	EntityType type;

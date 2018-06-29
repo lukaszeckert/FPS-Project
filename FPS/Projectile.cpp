@@ -23,4 +23,5 @@ Projectile::~Projectile()
 	pointLight->active = false;
 	LightSystem::getLightSystem()->unbind(pointLight);
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
+	ResourceManager::getResourceManager().removeEntity(entity);
 }

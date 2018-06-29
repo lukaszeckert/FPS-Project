@@ -50,7 +50,7 @@ ResourceManager::ResourceManager()
 	dynamicsWorld->setInternalTickCallback(tickCallback);
 
 	btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 0.2, 0)));
+	btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -0.2, 0)));
 	btRigidBody::btRigidBodyConstructionInfo
 					groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
 	groundRigidBody = new btRigidBody(groundRigidBodyCI);
@@ -183,5 +183,11 @@ void ResourceManager::setProjectileShader(ShaderInterface * shader)
 ShaderInterface* ResourceManager::getProjectileShader()
 {
 	return  projectileShader;
+}
+
+void ResourceManager::removeEntity(Entity * entity)
+{
+	EntityArray->erase(std::remove_if(EntityArray->begin(), EntityArray->end(), [entity](auto it) {return it == entity; }), EntityArray->end());
+	delete entity;
 }
 

@@ -44,6 +44,8 @@ void Scane::createObjects(std::vector<ObjectData> objects)
 	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/Projectile.obj", resourceManager->getTextureArray());
 	resourceManager->getObjectArray()->push_back(object);
 	resourceManager->setProjectileObject(object);
+	enemyObject = ObjectLoaderInterface::loadObjFile("GraphicModels/corner3.obj", resourceManager->getTextureArray());
+	resourceManager->getObjectArray()->push_back(object);
 /*	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", resourceManager->getTextureArray());
 	float poz = 0;
 	for (int i = 0; i < 4; ++i)
@@ -133,6 +135,12 @@ void Scane::createCamera()
 
 }
 
+void Scane::createEnemies()
+{
+	
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(7, 1, 40), enemyObject, shader);
+}
+
 
 
 Scane::Scane()
@@ -146,8 +154,9 @@ void Scane::createScane()
 	
 	createShaders();
 	createObjects(scane.objectData);
-	createLayers(scane.layerData, scane.entityData);
+	//createLayers(scane.layerData, scane.entityData);
 	createLights();
 	createCamera();
+	createEnemies();
 	
 }

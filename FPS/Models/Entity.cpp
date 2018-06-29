@@ -33,4 +33,11 @@ Entity::~Entity()
 	
 }
 
+glm::vec3 Entity::getPosition()
+{
+	btVector3 &vec = rigidBody->getWorldTransform().getOrigin();
+	return glm::vec3(vec.x(), vec.y(), vec.z());
+	return glm::vec3();
+}
+
 
