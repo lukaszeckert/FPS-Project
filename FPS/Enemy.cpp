@@ -55,7 +55,7 @@ void Enemy::lookAt(glm::vec3 position)
 
 bool Enemy::canShoot(glm::vec3 position)
 {
-	if (remainingReloadTime > 1)return false;
+	if (remainingReloadTime > 0.1)return false;
 	btVector3 End(position.x, position.y, position.z);
 	btVector3 Start(entity->rigidBody->getWorldTransform().getOrigin());
 	btCollisionWorld::ClosestRayResultCallback RayCallback(Start, End);
@@ -79,7 +79,7 @@ Enemy::Enemy(Entity * entity, float hp) :entity(entity), hp(hp), remainingReload
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
 	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.5, 1, 0.5));
 	btDefaultMotionState* cameraMotionState =
-		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, 0, entity->position.z)));
+		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z)));
 	btScalar mass = 1;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);
@@ -104,7 +104,7 @@ void Enemy::update(float dTime)
 	
 	if (canShoot(camera->getPosition()))
 	{
-		ProjectileManager::getProjectileManager().createProjectile(entity->getPosition(), camera->getPosition() - entity->getPosition(), 50, glm::vec3(1.0f, 0.0f, 0.0f));
+		ProjectileManager::getProjectileManager().createProjectile(entity->getPosition()+glm::vec3(0.0f,0.5f,0.0f), camera->getPosition() - entity->getPosition()- glm::vec3(0.0f, 0.5f, 0.0f), 50, glm::vec3(1.0f, 0.0f, 0.0f));
 		remainingReloadTime = RELOAD_TIME;
 	}
 }

@@ -38,9 +38,11 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	auto spotLight = LightSystem::getLightSystem()->getSpotLight();
 	spotLight->position = camera->getPosition();
 	spotLight->direction = camera->dir;
-	spotLight->cutOff = glm::cos(glm::radians(12.5f));
-	spotLight->outerCutOff = glm::cos(glm::radians(17.0f));
-	spotLight->ambient = glm::vec3(0, 0, 0);
+	spotLight->cutOff = glm::cos(glm::radians(13.0f));
+	spotLight->outerCutOff = glm::cos(glm::radians(20.0f));
+	spotLight->ambient = glm::vec3(0.7, 0.7, 0.7);
+	spotLight->diffuse = glm::vec3(0.7, 0.7, 0.7);
+	spotLight->specular = glm::vec3(0.7, 0.7, 0.7);
 	spotLight->linear = 0.09;
 	spotLight->quadratic = 0.032;
 	spotLight->constant = 1;

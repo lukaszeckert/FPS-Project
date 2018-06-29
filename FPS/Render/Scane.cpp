@@ -16,9 +16,9 @@ void Scane::createShaders()
 void Scane::createLights()
 {
 	auto lightSystem = LightSystem::getLightSystem();
-	lightSystem->getDirectionalLight()->ambient = glm::vec3(0.1, 0.1, 0.1);
-	lightSystem->getDirectionalLight()->diffuse = glm::vec3(0.1, 0.1, 0.1);
-	lightSystem->getDirectionalLight()->specular = glm::vec3(0.1, 0.1, 0.1);
+	lightSystem->getDirectionalLight()->ambient = glm::vec3(0.01, 0.01, 0.01);
+	lightSystem->getDirectionalLight()->diffuse = glm::vec3(0.01, 0.01, 0.01);
+	lightSystem->getDirectionalLight()->specular = glm::vec3(0.01, 0.01, 0.01);
 //	auto light = lightSystem->createPointLighs(glm::vec3(-4, 2, 5));
 
 
@@ -141,12 +141,12 @@ void Scane::createEnemies()
 	
 	//EnemyManager::getEnemyManager().createEnemy(glm::vec3(10, 2, 50), enemyObject, shader);
 
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(23, 1, 47), enemyObject, shader);
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(11, 1, 9), enemyObject, shader);
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(42, 1, 7), enemyObject, shader);
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(74, 1, 11), enemyObject, shader);
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(58, 1, 61), enemyObject, shader);
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(40, 1, 90), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(23, 2, 47), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(11, 2, 9), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(42, 2, 7), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(74, 2, 11), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(58, 2, 61), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(40, 2, 90), enemyObject, shader);
 
 }
 
