@@ -137,8 +137,17 @@ void Scane::createCamera()
 
 void Scane::createEnemies()
 {
+<<<<<<< HEAD
 	
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(10, 2, 50), enemyObject, shader);
+=======
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(23, 1, 47), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(11, 1, 9), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(42, 1, 7), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(74, 1, 11), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(58, 1, 61), enemyObject, shader);
+	EnemyManager::getEnemyManager().createEnemy(glm::vec3(40, 1, 90), enemyObject, shader);
+>>>>>>> c95ef64d03bc053e3d11237bca7e2e4d8e74abb7
 }
 
 
