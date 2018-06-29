@@ -7,7 +7,8 @@
 void Enemy::lookAt(glm::vec3 position)
 {
 	entity->rigidBody->activate(true);
-	glm::vec3 glmNewLook = position - entity->getPosition();
+	glm::vec3 glmNewLook = position - entity->position;
+	glmNewLook.y = 0;
 	glm::normalize(glmNewLook);
 	btVector3 newLook(glmNewLook.x, glmNewLook.y, glmNewLook.z);
 	// assume that "forward" for the player in local-frame is +zAxis
@@ -18,20 +19,34 @@ void Enemy::lookAt(glm::vec3 position)
 											  // compute currentLook and angle
 	btTransform transform = entity->rigidBody->getCenterOfMassTransform();
 	btQuaternion rotation = transform.getRotation();
-	btVector3 currentLook = quatRotate(rotation,localLook);//btVector3(rotation[3] * localLook.x() + rotation.y() * localLook.z() - rotation.z() * localLook.y(),
+	//btVector3 a = rotation*localLook;
+	btVector3 currentLook = btMatrix3x3(rotation)*localLook;// quatRotate(rotation, localLook);//btVector3(rotation[3] * localLook.x() + rotation.y() * localLook.z() - rotation.z() * localLook.y(),
 		//rotation[3] * localLook.y() + rotation.z() * localLook.x() - rotation.x() * localLook.z(),
 		//rotation[3] * localLook.z() + rotation.x() * localLook.y() - rotation.y() * localLook.x());
 		//-rotation.x() * localLook.x() - rotation.y() * localLook.y() - rotation.z() * localLook.z());;
+	currentLook = localLook;
+	currentLook.setY(0.0f);
 	currentLook.normalize();
 	btScalar angle = currentLook.angle(newLook);
-	std::cout << angle << " " << currentLook.x() << " " << currentLook.y() << " " << currentLook.z() <<"\n";
+	std::cout << angle << " " << currentLook.x() << " " << currentLook.y() << " " << currentLook.z() << " " << newLook.x() << " " << newLook.y() << " " << newLook.z() << " cc\n";
 	// compute new rotation
-	btQuaternion deltaRotation(rotationAxis, 0.01);
-	btQuaternion newRotation = deltaRotation * rotation;
+	auto c = currentLook.cross(newLook);
+	btQuaternion newRotation;
+	if (c.y() > 0) {
+		btQuaternion deltaRotation(rotationAxis, angle);
+		newRotation = deltaRotation;
+	}
+	else
+	{
+		btQuaternion deltaRotation(rotationAxis, -angle);
+		newRotation = deltaRotation;
 
+	}
+	
 	// apply new rotation
-	transform.setRotation(newRotation);
-	entity->rigidBody->setCenterOfMassTransform(transform);
+	auto t = btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z));
+	t.setRotation(newRotation);
+	entity->rigidBody->setCenterOfMassTransform(t);
 }
 
 bool Enemy::canShoot(glm::vec3 position)
