@@ -12,7 +12,7 @@ void Enemy::lookAt(glm::vec3 position)
 	if (glmNewLook.x != 0 || glmNewLook.y != 0) {
 		glm::normalize(glmNewLook);
 
-<<<<<<< HEAD
+
 		btVector3 newLook(glmNewLook.x, glmNewLook.y, glmNewLook.z);
 		// assume that "forward" for the player in local-frame is +zAxis
 		// and that the player is constrained to rotate about yAxis (+yAxis is "up")
@@ -40,38 +40,16 @@ void Enemy::lookAt(glm::vec3 position)
 		{
 			btQuaternion deltaRotation(rotationAxis, -angle);
 			newRotation = deltaRotation;
-=======
-											  // compute currentLook and angle
-	btTransform transform = entity->rigidBody->getCenterOfMassTransform();
-	btQuaternion rotation = transform.getRotation();
-	//btVector3 a = rotation*localLook;
-	btVector3 currentLook = btMatrix3x3(rotation)*localLook;// quatRotate(rotation, localLook);//btVector3(rotation[3] * localLook.x() + rotation.y() * localLook.z() - rotation.z() * localLook.y(),
-		//rotation[3] * localLook.y() + rotation.z() * localLook.x() - rotation.x() * localLook.z(),
-		//rotation[3] * localLook.z() + rotation.x() * localLook.y() - rotation.y() * localLook.x());
-		//-rotation.x() * localLook.x() - rotation.y() * localLook.y() - rotation.z() * localLook.z());;
-	currentLook = localLook;
-	currentLook.setY(0.0f);
-	currentLook.normalize();
-	btScalar angle = currentLook.angle(newLook);
-	// compute new rotation
-	auto c = currentLook.cross(newLook);
-	btQuaternion newRotation;
-	if (c.y() > 0) {
-		btQuaternion deltaRotation(rotationAxis, angle);
-		newRotation = deltaRotation;
-	}
-	else
-	{
-		btQuaternion deltaRotation(rotationAxis, -angle);
-		newRotation = deltaRotation;
->>>>>>> c95ef64d03bc053e3d11237bca7e2e4d8e74abb7
-
 		}
+	
+
+		
 
 		// apply new rotation
 		auto t = btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z));
 		t.setRotation(newRotation);
 		entity->rigidBody->setCenterOfMassTransform(t);
+		
 	}
 }
 
@@ -101,7 +79,7 @@ Enemy::Enemy(Entity * entity, float hp) :entity(entity), hp(hp), remainingReload
 	ResourceManager::getResourceManager().dynamicsWorld->removeCollisionObject(entity->rigidBody);
 	btCollisionShape* cameraShape = new btBoxShape(btVector3(0.5, 1, 0.5));
 	btDefaultMotionState* cameraMotionState =
-		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, entity->position.y, entity->position.z)));
+		new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(entity->position.x, 0, entity->position.z)));
 	btScalar mass = 1;
 	btVector3 cameraInertia(0, 0, 0);
 	cameraShape->calculateLocalInertia(mass, cameraInertia);

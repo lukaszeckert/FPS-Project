@@ -49,7 +49,7 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 	
 	auto P = glm::perspective(50 * 3.14f / 180, aspect, 1.0f, 50.0f);
 	glm::vec3 cameraPosition = camera->getPosition(); 
-	std::cout << cameraPosition.x << " " << cameraPosition.z << "\n";
+
 	auto V = glm::lookAt(cameraPosition, cameraPosition + camera->dir, camera->up);
 	
 	for (size_t i = 0; i < Entitys->size(); ++i) {
@@ -75,12 +75,12 @@ void RenderSystem::renderAll(std::vector<Entity*>* Entitys,Camera* camera,float 
 			trans2.getOpenGLMatrix(m);
 			
 			for (auto mesh : it->object->meshes)
-				render(mesh, P, V, glm::make_mat4(m) , it->shaderInterface, camera->position, it->color);
+				render(mesh, P, V, glm::make_mat4(m) , it->shaderInterface, camera->position, it->color, it->getPosition());
 		}
 	}
 	glfwSwapBuffers(glfwGetCurrentContext());
 }
-void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition, glm::vec3 color)
+void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 M, ShaderInterface *shader, glm::vec3 cameraPosition, glm::vec3 color, glm::vec3 position)
 {
 	auto lighSystem = LightSystem::getLightSystem();
 
@@ -108,7 +108,7 @@ void RenderSystem::render(Mesh *mesh, glm::mat4x4 P, glm::mat4x4 V, glm::mat4x4 
 	//light
 	int pointLightsNumber = 0;
 	for (auto it : *lighSystem->getPointLights()) {
-		if (it->active == true)
+		if (it->active == true && glm::distance(it->position,position) < 20)
 		{
 			
 			shader->setVec3("pointLights["+std::to_string(pointLightsNumber)+"].position", it->position);

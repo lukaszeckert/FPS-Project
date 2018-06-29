@@ -2,7 +2,7 @@
 # Material Count: 6
 
 newmtl Arm
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -15,7 +15,7 @@ map_Ka arm_dif.png
 map_Ks arm_showroom_spec.png
 
 newmtl Body
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -28,7 +28,7 @@ map_Ka body_dif.png
 map_Ks body_showroom_spec.png
 
 newmtl Glass
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -40,7 +40,7 @@ map_Bump glass_ddn.png
 map_Ka glass_dif.png
 
 newmtl Hand
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -53,7 +53,7 @@ map_Ka hand_dif.png
 map_Ks hand_showroom_spec.png
 
 newmtl Helmet
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -66,7 +66,7 @@ map_Ka helmet_diff.png
 map_Ks helmet_showroom_spec.png
 
 newmtl Leg
-Ns 94.117647
+Ns 92.156863
 Ka 0.000000 0.000000 0.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000

@@ -44,7 +44,7 @@ void Scane::createObjects(std::vector<ObjectData> objects)
 	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/Projectile.obj", resourceManager->getTextureArray());
 	resourceManager->getObjectArray()->push_back(object);
 	resourceManager->setProjectileObject(object);
-	enemyObject = ObjectLoaderInterface::loadObjFile("GraphicModels/corner3.obj", resourceManager->getTextureArray());
+	enemyObject = ObjectLoaderInterface::loadObjFile("GraphicModels/nanoSmall.obj", resourceManager->getTextureArray());
 	resourceManager->getObjectArray()->push_back(object);
 /*	auto object = ObjectLoaderInterface::loadObjFile("GraphicModels/cube.obj", resourceManager->getTextureArray());
 	float poz = 0;
@@ -137,17 +137,17 @@ void Scane::createCamera()
 
 void Scane::createEnemies()
 {
-<<<<<<< HEAD
+
 	
-	EnemyManager::getEnemyManager().createEnemy(glm::vec3(10, 2, 50), enemyObject, shader);
-=======
+	//EnemyManager::getEnemyManager().createEnemy(glm::vec3(10, 2, 50), enemyObject, shader);
+
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(23, 1, 47), enemyObject, shader);
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(11, 1, 9), enemyObject, shader);
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(42, 1, 7), enemyObject, shader);
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(74, 1, 11), enemyObject, shader);
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(58, 1, 61), enemyObject, shader);
 	EnemyManager::getEnemyManager().createEnemy(glm::vec3(40, 1, 90), enemyObject, shader);
->>>>>>> c95ef64d03bc053e3d11237bca7e2e4d8e74abb7
+
 }
 
 
